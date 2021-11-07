@@ -45,9 +45,11 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         homeMenu = new HomeMenu(this,new Dimension(450,300));
 
+        //Add object to the container
         this.add(homeMenu,BorderLayout.CENTER);
 
-        this.setUndecorated(true);
+        //This will hide the frame on homemenu
+        //this.setUndecorated(true);
 
 
     }
