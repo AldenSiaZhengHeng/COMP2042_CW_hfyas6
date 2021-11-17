@@ -232,6 +232,7 @@ private static Random rnd;
         if(broken)
             return 0;
         int out  = 0;
+        /**
         if(brickFace.contains(b.right))
             out = LEFT_IMPACT;
         else if(brickFace.contains(b.left))
@@ -239,6 +240,15 @@ private static Random rnd;
         else if(brickFace.contains(b.up))
             out = DOWN_IMPACT;
         else if(brickFace.contains(b.down))
+            out = UP_IMPACT;
+         **/
+        if(brickFace.contains(b.getRight()))
+            out = LEFT_IMPACT;
+        else if(brickFace.contains(b.getLeft()))
+            out = RIGHT_IMPACT;
+        else if(brickFace.contains(b.getUp()))
+            out = DOWN_IMPACT;
+        else if(brickFace.contains(b.getDown()))
             out = UP_IMPACT;
         return out;
     }
