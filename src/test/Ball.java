@@ -4,24 +4,13 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
-/**
- * Created by filippo on 04/09/16.
- *
- */
+
 abstract public class Ball {
 
     private Shape ballFace;
-
     private Point2D center;
-
-    //Point2D up;
-    //Point2D down;
-    //Point2D left;
-    //Point2D right;
-
     private Color border;
     private Color inner;
-
     private int speedX;
     private int speedY;
 
@@ -34,53 +23,43 @@ abstract public class Ball {
 
     public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
         this.center = center;
+        this.ballFace = makeBall(center,radiusA,radiusB);
+        this.border = border;
+        this.inner  = inner;
+        this.speedX = 0;
+        this.speedY = 0;
 
         setUp(new Point2D.Double());
         setDown(new Point2D.Double());
         setLeft(new Point2D.Double());
         setRight(new Point2D.Double());
-
-        //Can be remove without any problem
-        //getUp().setLocation(center.getX(),center.getY()-(radiusB / 2));
-        //getDown().setLocation(center.getX(),center.getY()+(radiusB / 2));
-        //getLeft().setLocation(center.getX()-(radiusA /2),center.getY());
-        //getRight().setLocation(center.getX()+(radiusA /2),center.getY());
-
-        ballFace = makeBall(center,radiusA,radiusB);
-        this.border = border;
-        this.inner  = inner;
-        speedX = 0;
-        speedY = 0;
     }
 
     protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
 
+    //Control the movement of the ball to move
+    //Change tmp name to movement
     public void move(){
-        RectangularShape tmp = (RectangularShape) ballFace;
+        RectangularShape movement = (RectangularShape) ballFace;
         center.setLocation((center.getX() + speedX),(center.getY() + speedY));
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
-
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        setPoints(w,h);
-
-
-        ballFace = tmp;
+        double width = movement.getWidth();
+        double height = movement.getHeight();
+        movement.setFrame((center.getX() -(width / 2)),(center.getY() - (height / 2)),width,height);
+        setPoints(width,height);
+        ballFace = movement;
     }
 
     //Move the ball to the start point when reset
-    public void MoveToStarPoint(Point p){
+    public void MoveToStartPoint(Point p){
         center.setLocation(p);
-
-        RectangularShape tmp = (RectangularShape) ballFace;
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
-
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        ballFace = tmp;
+        RectangularShape Original_Location = (RectangularShape) ballFace;
+        double width = Original_Location.getWidth();
+        double height = Original_Location.getHeight();
+        Original_Location.setFrame((center.getX() -(width / 2)),(center.getY() - (height / 2)),width,height);
+        ballFace = Original_Location;
     }
 
-    //Ball movement when collide with brick
+    //Control ball movement when collide with brick
     private void setPoints(double width,double height){
         getUp().setLocation(center.getX(),center.getY()-(height / 2));
         getDown().setLocation(center.getX(),center.getY()+(height / 2));
@@ -94,7 +73,6 @@ abstract public class Ball {
         speedX = x;
         speedY = y;
     }
-
 
     public void setXSpeed(int s){
         speedX = s;
@@ -135,7 +113,6 @@ abstract public class Ball {
     public int getSpeedY(){
         return speedY;
     }
-
 
     public Point2D getUp() {
         return up;
