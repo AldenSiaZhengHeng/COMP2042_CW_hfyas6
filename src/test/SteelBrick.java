@@ -50,11 +50,11 @@ public class SteelBrick extends Brick {
         return brickFace;
     }
 
-    public  boolean setImpact(Point2D point , int dir){
+    public boolean setImpact(Point2D point , int dir){
         if(super.isBroken())
             return false;
         impact();
-        return  super.isBroken();
+        return super.isBroken();
     }
 
     public void impact(){

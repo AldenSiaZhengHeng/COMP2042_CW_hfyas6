@@ -48,6 +48,7 @@ public class CementBrick extends Brick {
         return brickFace;
     }
 
+    //Update the brick face
     private void updateBrick(){
         if(!super.isBroken()){
             GeneralPath gp = crack.draw();
@@ -56,6 +57,7 @@ public class CementBrick extends Brick {
         }
     }
 
+    //Repair the cementBrick that is break
     public void repair(){
         super.repair();
         crack.reset();

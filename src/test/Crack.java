@@ -43,10 +43,10 @@ public class Crack{
 
 
     public GeneralPath draw(){
-
         return crack;
     }
 
+    //Reset the brick
     public void reset(){
         crack.reset();
     }

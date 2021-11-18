@@ -22,7 +22,7 @@ abstract public class Brick  {
     public static final int RIGHT_IMPACT = 400;
 
 
-private static Random rnd;
+    private static Random rnd;
 
     private String name;
     Shape brickFace;
