@@ -22,8 +22,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
@@ -72,17 +70,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
 
-        /**
-        //Create a borderstoke object
-        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
-        **/
         //Create Font style,size object
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
         creditsFont = new Font("Monospaced",Font.PLAIN,10);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
-
     }
 
     //Method to draw the Menu pages
@@ -94,8 +86,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         homeMenuDraw.setButton(startButton,menuButton);
         homeMenuDraw.setClick(startClicked,menuClicked);
         homeMenuDraw.drawMenu((Graphics2D)g);
-
-        //drawMenu((Graphics2D)g);
     }
 
 
@@ -117,12 +107,12 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Point p = mouseEvent.getPoint();
         if(startButton.contains(p)){
             startClicked = true;
-            repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+            startButtonRepaint();
 
         }
         else if(menuButton.contains(p)){
             menuClicked = true;
-            repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+            menuButtonRepaint();
         }
     }
 
@@ -130,11 +120,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mouseReleased(MouseEvent mouseEvent) {
         if(startClicked ){
             startClicked = false;
-            repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+            startButtonRepaint();
         }
         else if(menuClicked){
             menuClicked = false;
-            repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+            menuButtonRepaint();
         }
     }
 
@@ -162,5 +152,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         else
             this.setCursor(Cursor.getDefaultCursor());
 
+    }
+
+    //Create new method for repaint startButton and menuButton
+    public void startButtonRepaint(){
+        repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+    }
+
+    public void menuButtonRepaint(){
+        repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
     }
 }
