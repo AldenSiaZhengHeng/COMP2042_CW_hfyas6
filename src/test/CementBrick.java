@@ -7,7 +7,6 @@ import java.awt.geom.Point2D;
 
 public class CementBrick extends Brick {
 
-
     private static final String NAME = "Cement Brick";
     private static final Color DEF_INNER = new Color(147, 147, 147);
     private static final Color DEF_BORDER = new Color(217, 199, 175);
@@ -16,13 +15,25 @@ public class CementBrick extends Brick {
     private Crack crack;
     private Shape brickFace;
 
-
     public CementBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
-        //crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
-        //crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS,super.getbrickFace);
         crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS,super.getBrickFace());
-        //brickFace = super.brickFace;
+        brickFace = super.getBrickFace();
+    }
+
+    //Update the brick face
+    private void updateBrick(){
+        if(!super.isBroken()){
+            GeneralPath gp = crack.draw();
+            gp.append(super.getBrickFace(),false);
+            brickFace = gp;
+        }
+    }
+
+    //Repair the cementBrick that is break
+    public void repair(){
+        super.repair();
+        crack.reset();
         brickFace = super.getBrickFace();
     }
 
@@ -44,27 +55,9 @@ public class CementBrick extends Brick {
         return true;
     }
 
-
     @Override
     public Shape getBrick() {
         return brickFace;
     }
 
-    //Update the brick face
-    private void updateBrick(){
-        if(!super.isBroken()){
-            GeneralPath gp = crack.draw();
-            //gp.append(super.brickFace,false);
-            gp.append(super.getBrickFace(),false);
-            brickFace = gp;
-        }
-    }
-
-    //Repair the cementBrick that is break
-    public void repair(){
-        super.repair();
-        crack.reset();
-        //brickFace = super.brickFace;
-        brickFace = super.getBrickFace();
-    }
 }

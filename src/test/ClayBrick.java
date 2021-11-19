@@ -2,8 +2,6 @@ package test;
 
 import java.awt.*;
 import java.awt.Point;
-import java.awt.geom.Point2D;
-
 
 public class ClayBrick extends Brick {
 
@@ -24,7 +22,6 @@ public class ClayBrick extends Brick {
 
     @Override
     public Shape getBrick() {
-        //return super.brickFace;
         return super.getBrickFace();
     }
 
