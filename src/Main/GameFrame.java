@@ -15,14 +15,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package Main;
+
+import Debug.*;
+import Element.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.event.WindowListener;
+
+//unused import statement
 
 
 public class GameFrame extends JFrame implements WindowFocusListener {
@@ -34,6 +37,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    //Adding Icon Image
+    private Image icon;
+
     public GameFrame(){
         super();
 
@@ -43,7 +49,12 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         gameBoard = new GameBoard(this);
 
-        homeMenu = new HomeMenu(this,new Dimension(450,300));
+        //Add Icon images
+        icon = Toolkit.getDefaultToolkit().getImage("brick_Icon.jpg");
+        this.setIconImage(icon);
+
+
+        homeMenu = new HomeMenu(this,new Dimension(600,450));//450, 300
 
         //Add object to the container
         this.add(homeMenu,BorderLayout.CENTER);

@@ -1,6 +1,9 @@
-package test;
+package Main;
 
 //Add and import package
+import Debug.*;
+import Element.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -8,14 +11,13 @@ import java.awt.geom.Rectangle2D;
 
 
 public class HomeMenuDraw extends JComponent {
-    //Set string
+
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
     private static final String MENU_TEXT = "Exit";
 
-    //Set the color
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color TEXT_COLOR = new Color(16, 52, 166);//egyptian blue
     private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
@@ -35,7 +37,7 @@ public class HomeMenuDraw extends JComponent {
 
     private boolean startClicked;
     private boolean exitClicked;
-/**
+
     //Border size and the dash
     private static final int BORDER_SIZE = 5;
     private static final float[] DASHES = {12,6};
@@ -46,7 +48,7 @@ public class HomeMenuDraw extends JComponent {
 
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
     private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-**/
+
 
     public HomeMenuDraw(GameFrame Owner){
         this.owner = Owner;
@@ -80,9 +82,13 @@ public class HomeMenuDraw extends JComponent {
     //Method to draw menu
     public void drawMenu(Graphics2D g2d){
 
+         //Create a borderstoke object
+         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
+         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+
         //call method
         //May not required for this
-        //drawContainer(g2d);
+        drawContainer(g2d);
 
         /*
         all the following method calls need a relative
@@ -118,7 +124,7 @@ public class HomeMenuDraw extends JComponent {
 
     //Method for drawContainer
     //May be useless as
-    /**
+
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
@@ -143,7 +149,7 @@ public class HomeMenuDraw extends JComponent {
 
         g2d.setColor(prev);
     }
-    **/
+
 
     private void drawText(Graphics2D g2d){
 

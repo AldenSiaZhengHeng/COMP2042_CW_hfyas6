@@ -15,7 +15,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package Main;
+
+import Debug.*;
+import Element.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +29,7 @@ import java.awt.font.FontRenderContext;
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
+    //These variable will not make any changes
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
@@ -63,14 +67,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         strLen = 0;
         showPauseMenu = false;
 
-
-
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-
 
         this.initialize();
         message = "";
-        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
+        //wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
+        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
 
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
@@ -162,7 +164,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
-    private void drawBall(Ball ball,Graphics2D g2d){
+    private void drawBall(Ball ball, Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = ball.getBallFace();
@@ -176,7 +178,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
-    private void drawPlayer(Player p,Graphics2D g2d){
+    private void drawPlayer(Player p, Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = p.getPlayerFace();
@@ -289,7 +291,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                         gameTimer.start();
                 break;
             case KeyEvent.VK_F1:
-                if(keyEvent.isAltDown() && keyEvent.isShiftDown())
+                //if(keyEvent.isAltDown() && keyEvent.isShiftDown())
+                if(keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
                 wall.player.stop();
