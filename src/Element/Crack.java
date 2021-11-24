@@ -1,4 +1,7 @@
-package test;
+package Element;
+
+import Debug.*;
+import Main.*;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -38,7 +41,7 @@ public class Crack{
         this.steps = steps;
 
         this.brickFace = BrickFace;
-        random = brick.getRnd();
+        random = brick.getRandom();
     }
 
 
@@ -66,38 +69,34 @@ public class Crack{
                 end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
                 Point tmp = makeRandomPoint(start,end,VERTICAL);
                 makeCrack(impact,tmp);
-
                 break;
+
             case RIGHT:
                 start.setLocation(bounds.getLocation());
                 end.setLocation(bounds.x, bounds.y + bounds.height);
                 tmp = makeRandomPoint(start,end,VERTICAL);
                 makeCrack(impact,tmp);
-
                 break;
+
             case UP:
                 start.setLocation(bounds.x, bounds.y + bounds.height);
                 end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
                 tmp = makeRandomPoint(start,end,HORIZONTAL);
                 makeCrack(impact,tmp);
                 break;
+
             case DOWN:
                 start.setLocation(bounds.getLocation());
                 end.setLocation(bounds.x + bounds.width, bounds.y);
                 tmp = makeRandomPoint(start,end,HORIZONTAL);
                 makeCrack(impact,tmp);
-
                 break;
-
         }
     }
 
     //Randomly generate path from start point to end point
     protected void makeCrack(Point start, Point end){
-
         GeneralPath path = new GeneralPath();
-
-
         path.moveTo(start.x,start.y);
 
         double w = (end.x - start.x) / (double)steps;
@@ -119,7 +118,6 @@ public class Crack{
             path.lineTo(x,y);
 
         }
-
         path.lineTo(end.x,end.y);
         crack.append(path,true);
     }
@@ -127,20 +125,16 @@ public class Crack{
     //gives a random between negative bound and bound
     private int randomInBounds(int bound){
         int n = (bound * 2) + 1;
-        //return rnd.nextInt(n) - bound;
         return random.nextInt(n) - bound;
     }
 
     private boolean inMiddle(int i,int steps,int divisions){
         int low = (steps / divisions);
         int up = low * (divisions - 1);
-
         return  (i > low) && (i < up);
     }
 
     private int jumps(int bound,double probability){
-
-        //if(rnd.nextDouble() > probability)
         if(random.nextDouble() > probability)
             return randomInBounds(bound);
         return  0;
@@ -148,18 +142,16 @@ public class Crack{
     }
 
     private Point makeRandomPoint(Point from,Point to, int direction){
-
         Point out = new Point();
         int pos;
 
         switch(direction){
             case HORIZONTAL:
-                //pos = rnd.nextInt(to.x - from.x) + from.x;
                 pos = random.nextInt(to.x - from.x) + from.x;
                 out.setLocation(pos,to.y);
                 break;
+
             case VERTICAL:
-                //pos = rnd.nextInt(to.y - from.y) + from.y;
                 pos = random.nextInt(to.y - from.y) + from.y;
                 out.setLocation(to.x,pos);
                 break;

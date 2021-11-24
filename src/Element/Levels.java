@@ -1,4 +1,7 @@
-package test;
+package Element;
+
+import Debug.*;
+import Main.*;
 
 import java.awt.*;
 
@@ -16,6 +19,7 @@ public class Levels {
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
         return tmp;
+
     }
 
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){

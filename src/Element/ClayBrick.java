@@ -1,4 +1,7 @@
-package test;
+package Element;
+
+import Debug.*;
+import Main.*;
 
 import java.awt.*;
 import java.awt.Point;
