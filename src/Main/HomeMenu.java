@@ -33,13 +33,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle menuButton;
 
-
-    //Font datatype
-    private Font greetingsFont;
-    private Font gameTitleFont;
-    private Font creditsFont;
-    private Font buttonFont;
-
     //Assign datatype of the GameFrame(class)
     private GameFrame owner;
 
@@ -49,17 +42,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     //Constructor (HomeMenu)
     public HomeMenu(GameFrame owner,Dimension area){
-        //setFocusable() = try to focus next field to prepare it to receive text, gives the ability to potentially gain the focus to the component.
         this.setFocusable(true);
-
-        // gets the focus for the component on which it is called only when its top-level ancestor is the focused window.
         this.requestFocusInWindow();
-
-        //notified whenever you change the state of mouse
         this.addMouseListener(this);
-        //notified whenever you move or drag mouse.
         this.addMouseMotionListener(this);
-
         this.owner = owner;
 
         //Create a rectangle object
@@ -72,12 +58,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
-
-        //Create Font style,size object
-        greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
-        gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
-        creditsFont = new Font("Monospaced",Font.PLAIN,10);
-        buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
     }
 
     //Method to draw the Menu pages
@@ -85,7 +65,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void paint(Graphics g){
         HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
         homeMenuDraw.setMenuFace(menuFace);
-        homeMenuDraw.setFontStyle(greetingsFont,gameTitleFont,creditsFont,buttonFont);
         homeMenuDraw.setButton(startButton,menuButton);
         homeMenuDraw.setClick(startClicked,menuClicked);
         homeMenuDraw.drawMenu((Graphics2D)g);

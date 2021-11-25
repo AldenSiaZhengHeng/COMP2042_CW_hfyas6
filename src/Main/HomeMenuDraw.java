@@ -1,8 +1,6 @@
 package Main;
 
 //Add and import package
-import Debug.*;
-import Element.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,16 +22,11 @@ public class HomeMenuDraw extends JComponent {
     private static final Color CLICKED_TEXT = Color.WHITE;
 
     private GameFrame owner;
+    private WordFontStyle font;
 
     private Rectangle menuFace;
     private Rectangle startButton;
     private Rectangle exitButton;
-
-    //Font datatype
-    private Font greetingsFont;
-    private Font gameTitleFont;
-    private Font creditsFont;
-    private Font buttonFont;
 
     private boolean startClicked;
     private boolean exitClicked;
@@ -62,13 +55,6 @@ public class HomeMenuDraw extends JComponent {
         return menuFace;
     }
 
-    public void setFontStyle(Font GreetingsFont, Font GameTitleFont, Font CreditsFont, Font ButtonFont){
-        this.greetingsFont = GreetingsFont;
-        this.gameTitleFont = GameTitleFont;
-        this.creditsFont = CreditsFont;
-        this.buttonFont = ButtonFont;
-    }
-
     public void setButton(Rectangle StartButton, Rectangle MenuButton) {
         this.startButton = StartButton;
         this.exitButton = MenuButton;
@@ -81,10 +67,10 @@ public class HomeMenuDraw extends JComponent {
 
     //Method to draw menu
     public void drawMenu(Graphics2D g2d){
-
-         //Create a borderstoke object
-         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+        font = new WordFontStyle();
+        //Create a borderstoke object
+        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
+        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 
         //call method
         //May not required for this
@@ -159,9 +145,9 @@ public class HomeMenuDraw extends JComponent {
         FontRenderContext frc = g2d.getFontRenderContext();
 
         //Returns the bounds of the specified String in the specified Graphics context.
-        Rectangle2D greetingsRect = greetingsFont.getStringBounds(GREETINGS,frc);
-        Rectangle2D gameTitleRect = gameTitleFont.getStringBounds(GAME_TITLE,frc);
-        Rectangle2D creditsRect = creditsFont.getStringBounds(CREDITS,frc);
+        Rectangle2D greetingsRect = font.getGreetingsFont().getStringBounds(GREETINGS,frc);
+        Rectangle2D gameTitleRect = font.getGameTitleFont().getStringBounds(GAME_TITLE,frc);
+        Rectangle2D creditsRect = font.getCreditsFont().getStringBounds(CREDITS,frc);
 
         int sX,sY;
 
@@ -169,21 +155,21 @@ public class HomeMenuDraw extends JComponent {
         sX = (int)(menuFace.getWidth() - greetingsRect.getWidth()) / 2;
         sY = (int)(menuFace.getHeight() / 4);
 
-        g2d.setFont(greetingsFont);
+        g2d.setFont(font.getGreetingsFont());
         g2d.drawString(GREETINGS,sX,sY);
 
         //Adjust the position of the title ("Brick Destroyer")
         sX = (int)(menuFace.getWidth() - gameTitleRect.getWidth()) / 2;
         sY += (int) gameTitleRect.getHeight() * 1.1;//add 10% of String height between the two strings
 
-        g2d.setFont(gameTitleFont);
+        g2d.setFont(font.getGameTitleFont());
         g2d.drawString(GAME_TITLE,sX,sY);
 
         //Adjust the position of the credit (Version)
         sX = (int)(menuFace.getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
-        g2d.setFont(creditsFont);
+        g2d.setFont(font.getCreditsFont());
         g2d.drawString(CREDITS,sX,sY);
 
     }
@@ -193,10 +179,10 @@ public class HomeMenuDraw extends JComponent {
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
-        Rectangle2D mTxtRect = buttonFont.getStringBounds(MENU_TEXT,frc);
+        Rectangle2D txtRect = font.getButtonFont().getStringBounds(START_TEXT,frc);
+        Rectangle2D mTxtRect = font.getButtonFont().getStringBounds(MENU_TEXT,frc);
 
-        g2d.setFont(buttonFont);
+        g2d.setFont(font.getButtonFont());
 
         int x = (menuFace.width - startButton.width) / 2;
         int y =(int) ((menuFace.height - startButton.height) * 0.8);
