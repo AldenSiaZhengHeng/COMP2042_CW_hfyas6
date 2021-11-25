@@ -42,6 +42,12 @@ public class HomeMenuDraw extends JComponent {
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
     private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
 
+    //Create New instruction button and high score button
+    private Rectangle instruction;
+    private Rectangle score;
+
+    private boolean instructionClicked;
+    private boolean scoreClicked;
 
     public HomeMenuDraw(GameFrame Owner){
         this.owner = Owner;
@@ -49,10 +55,6 @@ public class HomeMenuDraw extends JComponent {
 
     public void setMenuFace(Rectangle MenuFace){
         this.menuFace = MenuFace;
-    }
-
-    public Rectangle getMenuFace(){
-        return menuFace;
     }
 
     public void setButton(Rectangle StartButton, Rectangle MenuButton) {
@@ -72,8 +74,6 @@ public class HomeMenuDraw extends JComponent {
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 
-        //call method
-        //May not required for this
         drawContainer(g2d);
 
         /*
@@ -81,30 +81,22 @@ public class HomeMenuDraw extends JComponent {
         painting directly into the HomeMenu rectangle,
         so the translation is made here so the other methods do not do that.
          */
-        //variable to gets this graphics context's current color.
         Color prevColor = g2d.getColor();
 
-        //variable to gets the current font
         Font prevFont = g2d.getFont();
 
-        //Returns the X coordinate of menuFace in double precision.
-        double x = getMenuFace().getX();
-        //Returns the Y coordinate of menuFace in double precision.
-        double y = getMenuFace().getY();
+        double x = menuFace.getX();
+        double y = menuFace.getY();
 
-        //Translates the origin of the graphics context to the point (x, y) in the current coordinate system.
         g2d.translate(x,y);
 
-        //methods calls for draw text and button
         drawText(g2d);
         drawButton(g2d);
-        //end of methods calls
 
         g2d.translate(-x,-y);
 
-        //Sets this graphics context's font to the specified font.
         g2d.setFont(prevFont);
-        //Sets this graphics context's current color to the specified color.
+
         g2d.setColor(prevColor);
     }
 
@@ -184,19 +176,38 @@ public class HomeMenuDraw extends JComponent {
 
         g2d.setFont(font.getButtonFont());
 
-        int x = (menuFace.width - startButton.width) / 2;
-        int y =(int) ((menuFace.height - startButton.height) * 0.8);
+        //Start Button
+        int x1 = (menuFace.width - startButton.width) / 2;
+        int y1 =(int) ((menuFace.height - startButton.height) * 0.8);
 
-        startButton.setLocation(x,y);
+        startButton.setLocation(x1,y1);
 
-        x = (int)(startButton.getWidth() - txtRect.getWidth()) / 2;
-        y = (int)(startButton.getHeight() - txtRect.getHeight()) / 2;
-
+        x1 = (int)(startButton.getWidth() - txtRect.getWidth()) / 2;
+        y1 = (int)(startButton.getHeight() - txtRect.getHeight()) / 2;
         //Adjust the text height
-        x += startButton.x;
-        y += startButton.y + (startButton.height * 0.9);
+        x1 += startButton.x;
+        y1 += startButton.y + (startButton.height * 0.9);
+
+        //Exit Button
+        startButtonClicked(g2d,x1,y1);
+        int x2 = startButton.x;
+        int y2 = startButton.y;
+
+        y2 *= 1.2;
+
+        exitButton.setLocation(x2,y2);
 
 
+        x2 = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
+        y2 = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
+
+        x2 += exitButton.x;
+        y2 += exitButton.y + (startButton.height * 0.9);
+
+        exitButtonClicked(g2d,x2,y2);
+    }
+
+    public void startButtonClicked(Graphics2D g2d, int x, int y){
         //May can refactor as the condition is not necessary
         //Respond when click the start button and show that start button is clicked
         if(startClicked){
@@ -212,21 +223,9 @@ public class HomeMenuDraw extends JComponent {
             g2d.draw(startButton);
             g2d.drawString(START_TEXT,x,y);
         }
+    }
 
-        x = startButton.x;
-        y = startButton.y;
-
-        y *= 1.2;
-
-        exitButton.setLocation(x,y);
-
-
-        x = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
-        y = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
-
-        x += exitButton.x;
-        y += exitButton.y + (startButton.height * 0.9);
-
+    public void exitButtonClicked(Graphics2D g2d, int x, int y){
         if(exitClicked){
             Color tmp = g2d.getColor();
 
@@ -240,8 +239,9 @@ public class HomeMenuDraw extends JComponent {
             g2d.draw(exitButton);
             g2d.drawString(MENU_TEXT,x,y);
         }
-
     }
+
+
 
 
 
