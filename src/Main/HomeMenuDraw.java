@@ -43,11 +43,13 @@ public class HomeMenuDraw extends JComponent {
     private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
 
     //Create New instruction button and high score button
-    private Rectangle instruction;
+    private Rectangle instructionButton;
     private Rectangle score;
 
     private boolean instructionClicked;
     private boolean scoreClicked;
+
+    private static final String instruction_TEXT = "Instruction";
 
     public HomeMenuDraw(GameFrame Owner){
         this.owner = Owner;
@@ -57,14 +59,16 @@ public class HomeMenuDraw extends JComponent {
         this.menuFace = MenuFace;
     }
 
-    public void setButton(Rectangle StartButton, Rectangle MenuButton) {
+    public void setButton(Rectangle StartButton, Rectangle MenuButton, Rectangle InstructionButton) {
         this.startButton = StartButton;
         this.exitButton = MenuButton;
+        this.instructionButton = InstructionButton;
     }
 
-    public void setClick(boolean StartClicked, boolean MenuClicked) {
+    public void setClick(boolean StartClicked, boolean MenuClicked, boolean InstructionClicked) {
         this.startClicked = StartClicked;
         this.exitClicked = MenuClicked;
+        this.instructionClicked = InstructionClicked;
     }
 
     //Method to draw menu
@@ -173,12 +177,13 @@ public class HomeMenuDraw extends JComponent {
 
         Rectangle2D txtRect = font.getButtonFont().getStringBounds(START_TEXT,frc);
         Rectangle2D mTxtRect = font.getButtonFont().getStringBounds(MENU_TEXT,frc);
+        Rectangle2D iTxtRect = font.getButtonFont().getStringBounds(instruction_TEXT,frc);
 
         g2d.setFont(font.getButtonFont());
 
         //Start Button
         int x1 = (menuFace.width - startButton.width) / 2;
-        int y1 =(int) ((menuFace.height - startButton.height) * 0.8);
+        int y1 =(int) ((menuFace.height - startButton.height) * 0.6); //0.8
 
         startButton.setLocation(x1,y1);
 
@@ -188,23 +193,40 @@ public class HomeMenuDraw extends JComponent {
         x1 += startButton.x;
         y1 += startButton.y + (startButton.height * 0.9);
 
-        //Exit Button
         startButtonClicked(g2d,x1,y1);
+
+        //Instruction button
         int x2 = startButton.x;
         int y2 = startButton.y;
 
         y2 *= 1.2;
+        instructionButton.setLocation(x2,y2);
 
-        exitButton.setLocation(x2,y2);
+        x2 = (int)(instructionButton.getWidth() - iTxtRect.getWidth()) / 2;
+        y2 = (int)(instructionButton.getHeight() - iTxtRect.getHeight()) / 2;
+
+        x2 += instructionButton.x;
+        y2 += instructionButton.y + (startButton.height * 0.9);
+
+        instructionButtonClicked(g2d,x2,y2);
 
 
-        x2 = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
-        y2 = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
+        //Exit Button
+        int x3 = instructionButton.x;
+        int y3 = instructionButton.y;
 
-        x2 += exitButton.x;
-        y2 += exitButton.y + (startButton.height * 0.9);
+        y3 *= 1.17;
 
-        exitButtonClicked(g2d,x2,y2);
+        exitButton.setLocation(x3,y3);
+
+
+        x3 = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
+        y3 = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
+
+        x3 += exitButton.x;
+        y3 += exitButton.y + (instructionButton.height * 0.9);
+
+        exitButtonClicked(g2d,x3,y3);
     }
 
     public void startButtonClicked(Graphics2D g2d, int x, int y){
@@ -224,6 +246,23 @@ public class HomeMenuDraw extends JComponent {
             g2d.drawString(START_TEXT,x,y);
         }
     }
+
+    public void instructionButtonClicked(Graphics2D g2d, int x, int y){
+        if(instructionClicked){
+            Color tmp = g2d.getColor();
+
+            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.draw(instructionButton);
+            g2d.setColor(CLICKED_TEXT);
+            g2d.drawString(instruction_TEXT,x,y);
+            g2d.setColor(tmp);
+        }
+        else{
+            g2d.draw(instructionButton);
+            g2d.drawString(instruction_TEXT,x,y);
+        }
+    }
+
 
     public void exitButtonClicked(Graphics2D g2d, int x, int y){
         if(exitClicked){

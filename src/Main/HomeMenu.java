@@ -40,6 +40,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean startClicked;
     private boolean menuClicked;
 
+
+    //Add instruction button and score button
+    private Rectangle instructionButton;
+    private boolean instructionClicked;
+
     //Constructor (HomeMenu)
     public HomeMenu(GameFrame owner,Dimension area){
         this.setFocusable(true);
@@ -55,9 +60,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.setPreferredSize(area);
 
         //Create an button object
-        Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
+        Dimension btnDim = new Dimension(area.width / 2, area.height / 12); //3,12
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
+        instructionButton = new Rectangle(btnDim);
     }
 
     //Method to draw the Menu pages
@@ -65,8 +71,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void paint(Graphics g){
         HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
         homeMenuDraw.setMenuFace(menuFace);
-        homeMenuDraw.setButton(startButton,menuButton);
-        homeMenuDraw.setClick(startClicked,menuClicked);
+        homeMenuDraw.setButton(startButton,menuButton,instructionButton);
+        homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
         homeMenuDraw.drawMenu((Graphics2D)g);
     }
 
@@ -96,6 +102,12 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             menuClicked = true;
             menuButtonRepaint();
         }
+
+        //Add instruction function
+        else if(instructionButton.contains(p)){
+            instructionClicked = true;
+            instructionButtonRepaint();
+        }
     }
 
     @Override
@@ -107,6 +119,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         else if(menuClicked){
             menuClicked = false;
             menuButtonRepaint();
+        }
+        else if(instructionClicked){
+            instructionClicked = false;
+            instructionButtonRepaint();
         }
     }
 
@@ -129,7 +145,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p) || menuButton.contains(p))
+        if(startButton.contains(p) || menuButton.contains(p) || instructionButton.contains(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
@@ -143,5 +159,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     public void menuButtonRepaint(){
         repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+    }
+
+    public void instructionButtonRepaint(){
+        repaint(instructionButton.x,instructionButton.y,instructionButton.width+1,instructionButton.height+1);
     }
 }
