@@ -33,7 +33,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle menuButton;
 
-    //Assign datatype of the GameFrame(class)
+    //Assign datatype of the GameFrame (class)
     private GameFrame owner;
 
     //Assign boolean to the
@@ -87,6 +87,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         else if(menuButton.contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
+        }
+        else if(instructionButton.contains(p)){
+            owner.enableInstructionPanel();
         }
     }
 

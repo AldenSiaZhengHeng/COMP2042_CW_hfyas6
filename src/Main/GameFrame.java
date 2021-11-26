@@ -37,8 +37,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
-    //Adding Icon Image
     private Image icon;
+
+    //Add new object about instruction
+    private Instruction instruction;
 
     public GameFrame(){
         super();
@@ -63,7 +65,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         //This will hide the frame on homemenu
         //this.setUndecorated(true);
 
-
+        //Add instruction page
+        instruction = new Instruction(this,new Dimension(600,450));
     }
 
     public void initialize(){
@@ -72,6 +75,16 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.pack();
         this.autoLocate();
         this.setVisible(true);
+    }
+
+    public void enableHomeMenu(){
+        this.dispose();
+        this.remove(instruction);
+        this.add(homeMenu,BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
+        /*to avoid problems with graphics focus controller is added here*/
+        this.addWindowFocusListener(this);
     }
 
     public void enableGameBoard(){
@@ -84,6 +97,18 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.addWindowFocusListener(this);
 
     }
+
+    public void enableInstructionPanel(){
+        this.dispose();
+        this.remove(homeMenu);
+        this.add(instruction,BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
+        /*to avoid problems with graphics focus controller is added here*/
+        this.addWindowFocusListener(this);
+        gaming = false;
+    }
+
 
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
