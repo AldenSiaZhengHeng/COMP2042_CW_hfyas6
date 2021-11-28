@@ -11,41 +11,30 @@ import java.awt.geom.Rectangle2D;
 public class Instruction extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final Color BG_COLOR = Color.GREEN.darker();
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
-    private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
-    private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
+    private static final Color txt_COLOR = new Color(169, 169, 169, 255);
+    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
+    private static final Color CLICKED_TEXT = Color.WHITE;
 
     private int DEF_WIDTH = 600;
     private int DEF_HEIGHT = 450;
 
     private Rectangle instruction_Board;
-
     private Rectangle backButton;
+
     private boolean backClicked;
-    private static final String BACK_TEXT = "Back";
-    private Font buttonFont;
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
-    private static final Color CLICKED_TEXT = Color.WHITE;
+    private static final String BACK_TEXT = "BACK";
 
+    private Image Background;
     private GameFrame owner;
-
+    private WordFontStyle font;
 
     public Instruction(GameFrame owner, Dimension area){
         initialize();
-
+        font = new WordFontStyle();
         this.owner = owner;
 
-        //instruction_Board = new Rectangle(new Point(0,0),area);
-        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
-
-        Dimension btnDim = new Dimension(area.width / 2, area.height / 12); //3,12
+        Dimension btnDim = new Dimension(area.width / 4, area.height / 12); //3,12
         backButton = new Rectangle(btnDim);
-
-        buttonFont = new Font("Monospaced",Font.PLAIN,35);
 
         instruction_Board = new Rectangle(new Point(0,0),area);
     }
@@ -59,67 +48,48 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
     }
 
     public void paint(Graphics g){
-        //super.paintComponent(g);
-        //g.fillRect(0,0,getWidth(),getHeight());
-        Font font = g.getFont().deriveFont( 20.0f );
-        g.setFont(font);
-        drawContainer((Graphics2D) g);
         instruction_list((Graphics2D) g);
         drawBackButton((Graphics2D) g);
     }
 
 
-    private void drawContainer(Graphics2D g2d){
-        Color prev = g2d.getColor();
-
-        g2d.setColor(BG_COLOR);
-
-        //Fill the color of the menu face
-        g2d.fill(instruction_Board);
-
-        //Returns the current Stroke in the Graphics2D context.
-        Stroke tmp = g2d.getStroke();
-
-        //Setting the stroke
-        g2d.setStroke(borderStoke_noDashes);
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(instruction_Board);
-
-        g2d.setStroke(borderStoke);
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(instruction_Board);
-
-        g2d.setStroke(tmp);
-
-        g2d.setColor(prev);
-    }
-
     public void instruction_list(Graphics2D g2d){
-        Font f = new Font("Gill Sans Ultra Bold",Font.PLAIN,50);
-        g2d.setFont(f);
-        g2d.drawString("HOW TO PLAY",20,40);
+        Background = Toolkit.getDefaultToolkit().getImage("src/Images/HomeMenu_Background.jpg");
+        g2d.drawImage(Background, 0, 0, (int)instruction_Board.getWidth(), (int)instruction_Board.getHeight(),this);
 
-        Font t = new Font("Times New Roman",Font.PLAIN,20);
-        g2d.setFont(t);
-        g2d.drawString("1. The Controller will be [A], [D], [SPACE] and [ESC] button.", 10,80);
-        g2d.drawString("2. Press [SPACE] to start the game.", 10,100);
-        g2d.drawString("3. Press [A] to move to left.", 10,120);
-        g2d.drawString("4. Press [D] to move to right.", 10,140);
-        g2d.drawString("5. Press [ESC] to open Pause Menu.", 10,160);
-        g2d.drawString("6. Press [ALT] + [SHIFT] + [F1] to open console.", 10,180);
-        g2d.drawString("7. Destroy all the brick and you will enter next level.", 10,200);
-        g2d.drawString("8. Lose all 3 lives and you lose the game.", 10,220);
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(font.getInstructionTitleFont());
+        g2d.drawString("HOW TO PLAY",70,55);
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("HOW TO PLAY",80,50);
+
+        g2d.setColor(Color.black);
+        g2d.setFont(font.getInstructionListFont());
+        g2d.drawString("1. The Controller will be [A], [D], [SPACE], and", 50,90);
+        g2d.drawString("    [ESC] key button.", 50,110);
+        g2d.drawString("2. Press [SPACE] to start the game.", 50,130);
+        g2d.drawString("3. Press [A] to move to left.", 50,152);
+        g2d.drawString("4. Press [D] to move to right.", 50,174);
+        g2d.drawString("5. Press [ESC] to open Pause Menu.", 50,196);
+        g2d.drawString("6. Press [ALT] + [SHIFT] + [F1] to open console.", 50,218);
+        g2d.drawString("7. Destroy all the brick and you will enter next level.", 50,240);
+        g2d.drawString("8. Lose all 3 lives and you lose the game.", 50,262);
 
     }
 
     private void drawBackButton(Graphics2D g2d){
-        FontRenderContext frc = g2d.getFontRenderContext();
-        Rectangle2D txtRect = buttonFont.getStringBounds(BACK_TEXT,frc);
+        //Fill the background color
+        g2d.setColor(txt_COLOR);
+        g2d.fill(backButton);
 
+        FontRenderContext frc = g2d.getFontRenderContext();
+        Rectangle2D txtRect = font.getBackButtonFont().getStringBounds(BACK_TEXT,frc);
+
+        //Set the text font and the button location
         int x, y;
-        g2d.setFont(buttonFont);
+        g2d.setFont(font.getBackButtonFont());
         x = (instruction_Board.width - backButton.width) / 2;
-        y = (int) ((instruction_Board.height - backButton.height) * 0.6);
+        y = (int) ((instruction_Board.height - backButton.height) * 0.8);
 
         backButton.setLocation(x,y);
 
@@ -143,6 +113,7 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
             g2d.setColor(tmp);
         }
         else{
+            g2d.setColor(Color.BLACK);
             g2d.draw(backButton);
             g2d.drawString(BACK_TEXT,x,y);
         }
