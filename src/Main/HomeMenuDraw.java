@@ -16,9 +16,7 @@ public class HomeMenuDraw extends JComponent {
     private static final String START_TEXT = "Start";
     private static final String MENU_TEXT = "Exit";
 
-    private static final Color BG_COLOR = Color.GREEN.darker();
-    private static final Color TEXT_COLOR = new Color(16, 52, 166);//egyptian blue
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
+    private static final Color TEXT_COLOR = new Color(245, 222, 179);
     private static final Color CLICKED_TEXT = Color.WHITE;
 
     private GameFrame owner;
@@ -31,17 +29,6 @@ public class HomeMenuDraw extends JComponent {
     private boolean startClicked;
     private boolean exitClicked;
 
-    //Border size and the dash
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
-
-    //BasicStroke -> Border
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
-
-    private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
-    private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-
     //Create New instruction button and high score button
     private Rectangle instructionButton;
     private Rectangle score;
@@ -50,6 +37,9 @@ public class HomeMenuDraw extends JComponent {
     private boolean scoreClicked;
 
     private static final String instruction_TEXT = "Instruction";
+
+    private Image Background;
+
 
     public HomeMenuDraw(GameFrame Owner){
         this.owner = Owner;
@@ -73,12 +63,10 @@ public class HomeMenuDraw extends JComponent {
 
     //Method to draw menu
     public void drawMenu(Graphics2D g2d){
-        font = new WordFontStyle();
-        //Create a borderstoke object
-        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+        Background = Toolkit.getDefaultToolkit().getImage("src/Images/Home.jpg");
+        g2d.drawImage(Background, 0, 0, (int)menuFace.getWidth(), (int)menuFace.getHeight(),this);
 
-        drawContainer(g2d);
+        font = new WordFontStyle();
 
         /*
         all the following method calls need a relative
@@ -104,38 +92,9 @@ public class HomeMenuDraw extends JComponent {
         g2d.setColor(prevColor);
     }
 
-    //Method for drawContainer
-    //May be useless as
-
-    private void drawContainer(Graphics2D g2d){
-        Color prev = g2d.getColor();
-
-        g2d.setColor(BG_COLOR);
-
-        //Fill the color of the menu face
-        g2d.fill(menuFace);
-
-        //Returns the current Stroke in the Graphics2D context.
-        Stroke tmp = g2d.getStroke();
-
-        //Setting the stroke
-        g2d.setStroke(borderStoke_noDashes);
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(menuFace);
-
-        g2d.setStroke(borderStoke);
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(menuFace);
-
-        g2d.setStroke(tmp);
-
-        g2d.setColor(prev);
-    }
-
-
     private void drawText(Graphics2D g2d){
 
-        g2d.setColor(TEXT_COLOR);
+        g2d.setColor(Color.black);
 
         //Get the rendering context of the Font within this Graphics2D context.
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -145,33 +104,53 @@ public class HomeMenuDraw extends JComponent {
         Rectangle2D gameTitleRect = font.getGameTitleFont().getStringBounds(GAME_TITLE,frc);
         Rectangle2D creditsRect = font.getCreditsFont().getStringBounds(CREDITS,frc);
 
-        int sX,sY;
+        int sX,sY, setX = 0, setY = 0;
 
         //Adjust the position of the greeting ("Welcome to:")
         sX = (int)(menuFace.getWidth() - greetingsRect.getWidth()) / 2;
-        sY = (int)(menuFace.getHeight() / 4);
+        sY = (int)(menuFace.getHeight() / 8);
 
         g2d.setFont(font.getGreetingsFont());
         g2d.drawString(GREETINGS,sX,sY);
 
+        setX = sX + 5;
+        setY = sY - 5;
+        g2d.setColor(Color.white);
+        g2d.drawString(GREETINGS,setX,setY);
+
         //Adjust the position of the title ("Brick Destroyer")
+        g2d.setColor(Color.black);
         sX = (int)(menuFace.getWidth() - gameTitleRect.getWidth()) / 2;
         sY += (int) gameTitleRect.getHeight() * 1.1;//add 10% of String height between the two strings
 
         g2d.setFont(font.getGameTitleFont());
         g2d.drawString(GAME_TITLE,sX,sY);
 
+        setX = sX + 5;
+        setY = sY - 5;
+        g2d.setColor(Color.white);
+        g2d.drawString(GAME_TITLE,setX,setY);
+
         //Adjust the position of the credit (Version)
+        g2d.setColor(Color.black);
         sX = (int)(menuFace.getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
         g2d.setFont(font.getCreditsFont());
         g2d.drawString(CREDITS,sX,sY);
 
+        setX = sX + 2;
+        setY = sY - 2;
+        g2d.setColor(Color.white);
+        g2d.drawString(CREDITS,setX,setY);
     }
 
     //Method to draw the button
     private void drawButton(Graphics2D g2d){
+        g2d.setColor(TEXT_COLOR);
+        g2d.fill(startButton);
+        g2d.fill(instructionButton);
+        g2d.fill(exitButton);
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
@@ -179,6 +158,7 @@ public class HomeMenuDraw extends JComponent {
         Rectangle2D mTxtRect = font.getButtonFont().getStringBounds(MENU_TEXT,frc);
         Rectangle2D iTxtRect = font.getButtonFont().getStringBounds(instruction_TEXT,frc);
 
+        g2d.setColor(Color.black);
         g2d.setFont(font.getButtonFont());
 
         //Start Button
@@ -234,7 +214,7 @@ public class HomeMenuDraw extends JComponent {
         //Respond when click the start button and show that start button is clicked
         if(startClicked){
             Color tmp = g2d.getColor();
-            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.setColor(CLICKED_TEXT);
             g2d.draw(startButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(START_TEXT,x,y);
@@ -250,8 +230,7 @@ public class HomeMenuDraw extends JComponent {
     public void instructionButtonClicked(Graphics2D g2d, int x, int y){
         if(instructionClicked){
             Color tmp = g2d.getColor();
-
-            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.setColor(CLICKED_TEXT);
             g2d.draw(instructionButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(instruction_TEXT,x,y);
@@ -268,7 +247,7 @@ public class HomeMenuDraw extends JComponent {
         if(exitClicked){
             Color tmp = g2d.getColor();
 
-            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.setColor(CLICKED_TEXT);
             g2d.draw(exitButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(MENU_TEXT,x,y);

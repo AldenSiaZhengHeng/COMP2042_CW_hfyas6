@@ -11,8 +11,7 @@ import java.awt.geom.Rectangle2D;
 public class Instruction extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final Color BG_COLOR = Color.GREEN.darker();
-    private static final Color txt_COLOR = new Color(169, 169, 169, 255);
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
+    private static final Color txt_COLOR = new Color(245, 222, 179, 255);
     private static final Color CLICKED_TEXT = Color.WHITE;
 
     private int DEF_WIDTH = 600;
@@ -106,7 +105,7 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
         if(backClicked){
             Color tmp = g2d.getColor();
 
-            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.setColor(CLICKED_TEXT);
             g2d.draw(backButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(BACK_TEXT,x,y);
