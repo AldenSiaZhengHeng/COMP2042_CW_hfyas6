@@ -1,8 +1,5 @@
 package Element;
 
-import Debug.*;
-import Main.*;
-
 import java.awt.*;
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -28,6 +25,10 @@ abstract public class Brick  {
     private Color inner;
 
 
+    //Add score
+    private static int score;
+    private int gainscore = 1;
+
     public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
         setRandom(new Random());
         setBrickFace(makeBrickFace(pos,size));
@@ -39,20 +40,31 @@ abstract public class Brick  {
 
     }
 
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        Brick.score = score;
+    }
+
     public void repair() {
         broken = false;
         strength = fullStrength;
     }
 
-    public void impact(){
+    public void impact(int ScoreObtain){
         strength--;
         broken = (strength == 0);
+        if(broken){
+            setScore(getScore() + ScoreObtain);
+        }
     }
 
-    public  boolean setImpact(Point2D point , int dir){
+    public boolean setImpact(Point2D point , int dir){
         if(broken)
             return false;
-        impact();
+        impact(gainscore);
         return broken;
     }
 

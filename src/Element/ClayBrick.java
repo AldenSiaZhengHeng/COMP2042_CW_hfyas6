@@ -27,6 +27,4 @@ public class ClayBrick extends Brick {
     public Shape getBrick() {
         return super.getBrickFace();
     }
-
-
 }
