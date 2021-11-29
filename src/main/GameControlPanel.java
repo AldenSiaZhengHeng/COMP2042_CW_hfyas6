@@ -15,21 +15,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package Main;
+package main;
 
-import Element.*;
+import element.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-public class Wall {
-
-    private static final int LEVELS_COUNT = 4;
-
-    private static final int CLAY = 1;
-    private static final int STEEL = 2;
-    private static final int CEMENT = 3;
+public class GameControlPanel {
 
     private Random random;
     private Rectangle area;
@@ -53,13 +47,15 @@ public class Wall {
     private static int lineCount = 3;
     private Rectangle drawContainerArea;
 
+    //Add score
+    int score = 0;
 
     //Additional
     private Levels create_levels;
     Crack crack;
     //public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos)
 
-    public Wall(Rectangle drawArea){
+    public GameControlPanel(Rectangle drawArea){
     //wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         //this.startPoint = new Point(ballPos);
@@ -68,7 +64,6 @@ public class Wall {
         create_levels  = new Levels();
         this.drawContainerArea = drawArea;
         brickCount = 30;
-        //levels = makeLevels(drawContainerArea,brickCount,lineCount,brickDimensionRatio);
         levels = create_levels.makeLevels(drawContainerArea,brickCount,lineCount,brickDimensionRatio);
 
         //levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
