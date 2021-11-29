@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 //Add and import package
 

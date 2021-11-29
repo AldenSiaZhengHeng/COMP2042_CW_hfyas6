@@ -1,7 +1,4 @@
-package Element;
-
-import Debug.*;
-import Main.*;
+package element;
 
 import java.awt.*;
 

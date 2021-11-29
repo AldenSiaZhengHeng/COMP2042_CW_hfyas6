@@ -15,10 +15,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package Debug;
+package debug;
 
-import Main.*;
-import Element.*;
+import main.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -38,19 +37,19 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
+    private GameControlPanel gameControlPanel;
 
-    public DebugPanel(Wall wall){
+    public DebugPanel(GameControlPanel gameControlPanel){
 
-        this.wall = wall;
+        this.gameControlPanel = gameControlPanel;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level",e -> wall.nextLevel());
-        resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
+        skipLevel = makeButton("Skip Level",e -> gameControlPanel.nextLevel());
+        resetBalls = makeButton("Reset Balls",e -> gameControlPanel.resetBallCount());
 
-        ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4,4,e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        ballXSpeed = makeSlider(-4,4,e -> gameControlPanel.setBallXSpeed(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(-4,4,e -> gameControlPanel.setBallYSpeed(ballYSpeed.getValue()));
 
         this.add(skipLevel);
         this.add(resetBalls);

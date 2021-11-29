@@ -1,4 +1,4 @@
-package Element;
+package element;
 
 import java.awt.*;
 import java.awt.Point;

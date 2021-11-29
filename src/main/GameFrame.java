@@ -15,10 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package Main;
-
-import Debug.*;
-import Element.*;
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,7 +81,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
-        this.addWindowFocusListener(this);
+        //this.addWindowFocusListener(this);
     }
 
     public void enableGameBoard(){
@@ -105,8 +102,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
-        this.addWindowFocusListener(this);
-        gaming = false;
+        //this.addWindowFocusListener(this);
     }
 
 
