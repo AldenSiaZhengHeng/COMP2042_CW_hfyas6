@@ -78,8 +78,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
        // checkScore();
         gameTimer = new Timer(10,e ->{
             //score
-            highScore = String.format("HighScore: " + score.GetHighScore());
-
+            //highScore = String.format("HighScore: " + score.GetHighScore());
+            view.setHighScore(String.format("HighScore: " + score.GetHighScore()));
             gameControlPanel.move();
             gameControlPanel.findImpacts();
 
@@ -153,9 +153,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         view.draw(g2d);
         Toolkit.getDefaultToolkit().sync();
 
-        //highScore = score.GetHighScore();
-
-        g2d.drawString(highScore,220,120);
     }
 
     private void clear(Graphics2D g2d){
@@ -167,8 +164,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void checkScore(){
         int highSc;
-        String parts[] = highScore.split(":");
-        System.out.println(parts[1]);
+        String parts[] = view.getHighScore().split(":");
+        //System.out.println(parts[1]);
         if(score.GetHighScore() == "0" || score.GetHighScore()==null){
             highSc = 0;
         }
@@ -178,7 +175,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         if(brick.getScore() > highSc || score.GetHighScore()==null){
             String name = JOptionPane.showInputDialog("You set a new high score. What is your name?");
-            highScore = "HighScore: " + name + ":" + brick.getScore();
             String scoring = name + ":" + brick.getScore();
             score.writeFile(scoring,brick.getScore());
         }
@@ -234,6 +230,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         if(view.getContinueButtonRect().contains(p)){
             view.setMessage2("Press Space to continue..");
+            view.setHighScore("");
             view.setStart_message("");
             view.setMessage("");
             view.setMessage3("");
@@ -244,6 +241,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         else if(view.getRestartButtonRect().contains(p)){
 
             view.setMessage3("Restarting Game...");
+            view.setHighScore("");
             view.setStart_message("");
             view.setMessage("");
             view.setMessage2("");
@@ -307,8 +305,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void onLostFocus(){
         gameTimer.stop();
-        //view.setMessage("FOCUS LOST");
         view.setStart_message("Press Space to continue...");
+        view.setHighScore("");
         view.setMessage2("");
         view.setMessage3("");
         repaint();

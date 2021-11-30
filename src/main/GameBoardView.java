@@ -31,7 +31,9 @@ public class GameBoardView extends  JComponent{
     private String ball_info;
     private String score_info;
 
-
+    private String highScore="";
+    public void setHighScore(String HighScore){this.highScore = HighScore;}
+    public String getHighScore(){return highScore;}
     private boolean showPauseMenu;
 
     private Rectangle continueButtonRect;
@@ -92,6 +94,7 @@ public class GameBoardView extends  JComponent{
     public void drawinsturciton(Graphics2D g2d){
         g2d.setColor(FONT_COLOR);
         g2d.setFont(new Font("Stencil",Font.BOLD,30));
+        g2d.drawString(getHighScore(), 160,120);
         g2d.drawString(getMessage(),220,150);
         g2d.drawString(getMessage2(),120,150);
         g2d.drawString(getMessage3(),160,150);
