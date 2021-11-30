@@ -20,6 +20,9 @@ package main;
 import debug.*;
 import element.*;
 
+//score
+import scorelist.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,12 +45,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private boolean showPauseMenu;
 
-
     private DebugConsole debugConsole;
+    private GameBoardView view;
 
     private Brick brick;
 
-    private GameBoardView view;
+    //Score
+    private String highScore = "";
+    private scoreController score;
 
     public GameBoard(JFrame owner){
         super();
@@ -56,6 +61,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameControlPanel = new GameControlPanel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner, gameControlPanel,this);
         view = new GameBoardView(this);
+        score = new scoreController();
         view.setMessage("");
         view.setMessage2("");
         view.setMessage3("");
@@ -69,7 +75,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         //initialize the first level
         gameControlPanel.nextLevel();
 
+       // checkScore();
         gameTimer = new Timer(10,e ->{
+            //score
+            highScore = String.format("HighScore: " + score.GetHighScore());
+
             gameControlPanel.move();
             gameControlPanel.findImpacts();
 
@@ -97,6 +107,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(gameControlPanel.ballEnd()){
                     gameControlPanel.wallReset();
                     view.setMessage("Game over");
+                    view.setMessage2("");
+                    view.setMessage3("");
+                    view.setBrick_info("");
+                    view.setScore_info("");
+                    view.setBall_info("");
+                    checkScore();
                 }
                 gameControlPanel.ballReset();
                 gameTimer.stop();
@@ -133,11 +149,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void paint(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
-
         clear(g2d);
-
         view.draw(g2d);
         Toolkit.getDefaultToolkit().sync();
+
+        //highScore = score.GetHighScore();
+
+        g2d.drawString(highScore,220,120);
     }
 
     private void clear(Graphics2D g2d){
@@ -145,6 +163,25 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(BG_COLOR);
         g2d.fillRect(0,0,getWidth(),getHeight());
         g2d.setColor(tmp);
+    }
+
+    public void checkScore(){
+        int highSc;
+        String parts[] = highScore.split(":");
+        System.out.println(parts[1]);
+        if(score.GetHighScore() == "0" || score.GetHighScore()==null){
+            highSc = 0;
+        }
+        else{
+            highSc = Integer.parseInt(parts[2]);
+        }
+
+        if(brick.getScore() > highSc || score.GetHighScore()==null){
+            String name = JOptionPane.showInputDialog("You set a new high score. What is your name?");
+            highScore = "HighScore: " + name + ":" + brick.getScore();
+            String scoring = name + ":" + brick.getScore();
+            score.writeFile(scoring,brick.getScore());
+        }
     }
 
     @Override
@@ -216,6 +253,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
             gameControlPanel.ballReset();
             gameControlPanel.wallReset();
+
             //Add
             brick.setScore(0);
             showPauseMenu = false;
@@ -269,13 +307,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void onLostFocus(){
         gameTimer.stop();
-        /**
-        message = "Focus Lost";
-        start_message = "Press Space to continue..";
-        message2 = "";
-        message3 = "";
-         **/
-        view.setMessage("FOCUS LOST");
+        //view.setMessage("FOCUS LOST");
         view.setStart_message("Press Space to continue...");
         view.setMessage2("");
         view.setMessage3("");
