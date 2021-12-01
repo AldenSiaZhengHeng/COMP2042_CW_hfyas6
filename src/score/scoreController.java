@@ -1,4 +1,4 @@
-package scorelist;
+package score;
 
 import element.*;
 
