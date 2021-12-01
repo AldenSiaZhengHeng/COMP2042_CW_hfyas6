@@ -17,11 +17,11 @@
  */
 package main;
 
+//import packages
 import debug.*;
 import element.*;
+import score.*;
 
-//score
-import scorelist.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,7 +52,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     //Score
     private String highScore = "";
-    private scoreController score;
+    private scoreController ScoreView;
+    private scoreModel ScoreModel;
 
     public GameBoard(JFrame owner){
         super();
@@ -61,7 +62,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameControlPanel = new GameControlPanel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner, gameControlPanel,this);
         view = new GameBoardView(this);
-        score = new scoreController();
+        ScoreView = new scoreController();
+        ScoreModel = new scoreModel();
         view.setMessage("");
         view.setMessage2("");
         view.setMessage3("");
@@ -77,9 +79,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
        // checkScore();
         gameTimer = new Timer(10,e ->{
-            //score
-            //highScore = String.format("HighScore: " + score.GetHighScore());
-            view.setHighScore(String.format("HighScore: " + score.GetHighScore()));
+
+            view.setHighScore(String.format("HighScore: " + ScoreView.GetHighScore()));
             gameControlPanel.move();
             gameControlPanel.findImpacts();
 
@@ -101,7 +102,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             else{
                 view.setBall_info(String.format("Balls: ",gameControlPanel.getBallCount()));
             }
-            view.setScore_info(String.format("Score: %d", brick.getScore()));
+            //view.setScore_info(String.format("Score: %d", brick.getScore()));
+            view.setScore_info(String.format("Score: %d", ScoreModel.getScore()));
 
             if(gameControlPanel.isBallLost()){
                 if(gameControlPanel.ballEnd()){
@@ -112,7 +114,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     view.setBrick_info("");
                     view.setScore_info("");
                     view.setBall_info("");
-                    checkScore();
+                    ScoreView.checkScore(view.getHighScore());
                 }
                 gameControlPanel.ballReset();
                 gameTimer.stop();
@@ -160,24 +162,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(BG_COLOR);
         g2d.fillRect(0,0,getWidth(),getHeight());
         g2d.setColor(tmp);
-    }
-
-    public void checkScore(){
-        int highSc;
-        String parts[] = view.getHighScore().split(":");
-        //System.out.println(parts[1]);
-        if(score.GetHighScore() == "0" || score.GetHighScore()==null){
-            highSc = 0;
-        }
-        else{
-            highSc = Integer.parseInt(parts[2]);
-        }
-
-        if(brick.getScore() > highSc || score.GetHighScore()==null){
-            String name = JOptionPane.showInputDialog("You set a new high score. What is your name?");
-            String scoring = name + ":" + brick.getScore();
-            score.writeFile(scoring,brick.getScore());
-        }
     }
 
     @Override
@@ -253,7 +237,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             gameControlPanel.wallReset();
 
             //Add
-            brick.setScore(0);
+            //brick.setScore(0);
+            ScoreModel.setScore(0);
             showPauseMenu = false;
             view.updatePause(showPauseMenu);
             repaint();

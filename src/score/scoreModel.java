@@ -1,10 +1,9 @@
 package score;
 
 public class scoreModel {
-    private int score;
+    private static int score;
 
     public scoreModel(){
-
     }
 
     public int getScore(){
