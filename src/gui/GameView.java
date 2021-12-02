@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 
-public class GameBoardView extends  JComponent{
+public class GameView extends  JComponent{
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
@@ -49,10 +49,10 @@ public class GameBoardView extends  JComponent{
     private WordFontStyle font;
     private Brick brick;
 
-    private GameBoard owner;
+    private GameController owner;
 
 
-    public GameBoardView(GameBoard owner){
+    public GameView(GameController owner){
         this.owner = owner;
         font = new WordFontStyle();
         strLen = 0;

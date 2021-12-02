@@ -29,7 +29,7 @@ import java.awt.event.*;
 
 
 
-public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
+public class GameController extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -38,15 +38,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private Timer gameTimer;
 
-    private GameControlPanel gameControlPanel;
-    public GameControlPanel getGame(){
-        return gameControlPanel;
+    private GameModel gameModel;
+    public GameModel getGame(){
+        return gameModel;
     }
 
     private boolean showPauseMenu;
 
     private DebugConsole debugConsole;
-    private GameBoardView view;
+    private GameView view;
 
     private Brick brick;
 
@@ -55,13 +55,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private scoreController ScoreController;
     private scoreModel ScoreModel;
 
-    public GameBoard(JFrame owner){
+    public GameController(JFrame owner){
         super();
         //this.initialize();
         showPauseMenu = false;
-        gameControlPanel = new GameControlPanel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
-        debugConsole = new DebugConsole(owner, gameControlPanel,this);
-        view = new GameBoardView(this);
+        gameModel = new GameModel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
+        debugConsole = new DebugConsole(owner, gameModel,this);
+        view = new GameView(this);
         ScoreController = new scoreController();
         ScoreModel = new scoreModel();
         view.initialize();
@@ -75,40 +75,40 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         view.updatePause(showPauseMenu);
         //initialize the first level
-        gameControlPanel.nextLevel();
+        gameModel.nextLevel();
 
        // checkScore();
         gameTimer = new Timer(10,e ->{
 
             view.setHighScore(String.format("HighScore: " + ScoreController.GetHighScore()));
-            gameControlPanel.move();
-            gameControlPanel.findImpacts();
+            gameModel.move();
+            gameModel.findImpacts();
 
             view.setStart_message("");
             view.setMessage("");
             view.setMessage2("");
             view.setMessage3("");
-            view.setBrick_info(String.format("Bricks: %d", gameControlPanel.getBrickCount()));
+            view.setBrick_info(String.format("Bricks: %d", gameModel.getBrickCount()));
 
-            if(gameControlPanel.getBallCount() == 3){
-                view.setBall_info(String.format("Balls: ⚽ ⚽ ⚽",gameControlPanel.getBallCount()));
+            if(gameModel.getBallCount() == 3){
+                view.setBall_info(String.format("Balls: ⚽ ⚽ ⚽", gameModel.getBallCount()));
             }
-            else if(gameControlPanel.getBallCount() == 2){
-                view.setBall_info(String.format("Balls: ⚽ ⚽",gameControlPanel.getBallCount()));
+            else if(gameModel.getBallCount() == 2){
+                view.setBall_info(String.format("Balls: ⚽ ⚽", gameModel.getBallCount()));
             }
-            else if(gameControlPanel.getBallCount() == 1){
-                view.setBall_info(String.format("Balls: ⚽",gameControlPanel.getBallCount()));
+            else if(gameModel.getBallCount() == 1){
+                view.setBall_info(String.format("Balls: ⚽", gameModel.getBallCount()));
             }
             else{
-                view.setBall_info(String.format("Balls: ",gameControlPanel.getBallCount()));
+                view.setBall_info(String.format("Balls: ", gameModel.getBallCount()));
             }
             //view.setScore_info(String.format("Score: %d", brick.getScore()));
             view.setScore_info(String.format("Score: %d", ScoreModel.getScore()));
 
-            if(gameControlPanel.isBallLost()){
+            if(gameModel.isBallLost()){
                 ScoreController.givePenalty();
-                if(gameControlPanel.ballEnd()){
-                    gameControlPanel.wallReset();
+                if(gameModel.ballEnd()){
+                    gameModel.wallReset();
                     view.setMessage("Game over");
                     view.setMessage2("");
                     view.setMessage3("");
@@ -117,17 +117,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     view.setBall_info("");
                     ScoreController.checkScore(view.getHighScore());
                 }
-                gameControlPanel.ballReset();
-                //gameTimer.stop();
+                gameModel.ballReset();
+                gameTimer.stop();
             }
-            else if(gameControlPanel.isDone()){
-                ScoreController.givebonus(gameControlPanel.getBallCount());
-                if(gameControlPanel.hasLevel()){
+            else if(gameModel.isDone()){
+                ScoreController.givebonus(gameModel.getBallCount());
+                if(gameModel.hasLevel()){
                     view.setMessage2("Go to Next Level");
                     gameTimer.stop();
-                    gameControlPanel.ballReset();
-                    gameControlPanel.wallReset();
-                    gameControlPanel.nextLevel();
+                    gameModel.ballReset();
+                    gameModel.wallReset();
+                    gameModel.nextLevel();
                 }
                 else{
                     view.setMessage4("ALL WALLS DESTROYED");
@@ -174,10 +174,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                gameControlPanel.getPlayer().moveLeft();
+                gameModel.getPlayer().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                gameControlPanel.getPlayer().movRight();
+                gameModel.getPlayer().movRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -198,13 +198,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
-                gameControlPanel.getPlayer().stop();
+                gameModel.getPlayer().stop();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        gameControlPanel.getPlayer().stop();
+        gameModel.getPlayer().stop();
     }
 
     @Override
@@ -236,8 +236,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             view.setBrick_info("");
             view.setBall_info("");
 
-            gameControlPanel.ballReset();
-            gameControlPanel.wallReset();
+            gameModel.ballReset();
+            gameModel.wallReset();
 
             //Add
             //brick.setScore(0);

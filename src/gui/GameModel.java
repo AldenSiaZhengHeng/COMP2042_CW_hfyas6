@@ -23,7 +23,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-public class GameControlPanel {
+public class GameModel {
 
     private Random random;
     private Rectangle area;
@@ -52,7 +52,7 @@ public class GameControlPanel {
     Crack crack;
     //public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos)
 
-    public GameControlPanel(Rectangle drawArea){
+    public GameModel(Rectangle drawArea){
     //wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         //this.startPoint = new Point(ballPos);

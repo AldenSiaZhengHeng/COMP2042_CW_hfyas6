@@ -37,16 +37,16 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private GameControlPanel gameControlPanel;
+    private GameModel gameModel;
 
-    public DebugPanel(GameControlPanel gameControlPanel){
+    public DebugPanel(GameModel gameModel){
 
-        this.gameControlPanel = gameControlPanel;
+        this.gameModel = gameModel;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level",e -> gameControlPanel.nextLevel());
-        resetBalls = makeButton("Reset Balls",e -> gameControlPanel.resetBallCount());
+        skipLevel = makeButton("Skip Level",e -> gameModel.nextLevel());
+        resetBalls = makeButton("Reset Balls",e -> gameModel.resetBallCount());
 
         ballXSpeed = makeSlider(5,10,e -> gameControlPanel.setBallXSpeed(ballXSpeed.getValue()));
         ballYSpeed = makeSlider(-10,-5,e -> gameControlPanel.setBallYSpeed(ballYSpeed.getValue()));
