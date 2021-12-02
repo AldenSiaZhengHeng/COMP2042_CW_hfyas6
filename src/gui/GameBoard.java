@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package main;
+package gui;
 
 //import packages
 import debug.*;
@@ -52,18 +52,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     //Score
     private String highScore = "";
-    private scoreController ScoreView;
+    private scoreController ScoreController;
     private scoreModel ScoreModel;
 
     public GameBoard(JFrame owner){
         super();
-        this.initialize();
+        //this.initialize();
         showPauseMenu = false;
         gameControlPanel = new GameControlPanel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner, gameControlPanel,this);
         view = new GameBoardView(this);
-        ScoreView = new scoreController();
+        ScoreController = new scoreController();
         ScoreModel = new scoreModel();
+        view.initialize();
         view.setMessage("");
         view.setMessage2("");
         view.setMessage3("");
@@ -72,7 +73,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         view.setBall_info("");
         view.setScore_info("");
 
-
         view.updatePause(showPauseMenu);
         //initialize the first level
         gameControlPanel.nextLevel();
@@ -80,7 +80,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
        // checkScore();
         gameTimer = new Timer(10,e ->{
 
-            view.setHighScore(String.format("HighScore: " + ScoreView.GetHighScore()));
+            view.setHighScore(String.format("HighScore: " + ScoreController.GetHighScore()));
             gameControlPanel.move();
             gameControlPanel.findImpacts();
 
@@ -106,6 +106,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             view.setScore_info(String.format("Score: %d", ScoreModel.getScore()));
 
             if(gameControlPanel.isBallLost()){
+                ScoreController.givePenalty();
                 if(gameControlPanel.ballEnd()){
                     gameControlPanel.wallReset();
                     view.setMessage("Game over");
@@ -114,12 +115,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     view.setBrick_info("");
                     view.setScore_info("");
                     view.setBall_info("");
-                    ScoreView.checkScore(view.getHighScore());
+                    ScoreController.checkScore(view.getHighScore());
                 }
                 gameControlPanel.ballReset();
-                gameTimer.stop();
+                //gameTimer.stop();
             }
             else if(gameControlPanel.isDone()){
+                ScoreController.givebonus(gameControlPanel.getBallCount());
                 if(gameControlPanel.hasLevel()){
                     view.setMessage2("Go to Next Level");
                     gameTimer.stop();
@@ -128,7 +130,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     gameControlPanel.nextLevel();
                 }
                 else{
-                    view.setMessage2("ALL WALLS DESTROYED");
+                    view.setMessage4("ALL WALLS DESTROYED");
                     gameTimer.stop();
                 }
             }
@@ -179,7 +181,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
-                System.out.println(showPauseMenu);
                 view.updatePause(showPauseMenu);
 
                 repaint();
@@ -218,6 +219,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             view.setStart_message("");
             view.setMessage("");
             view.setMessage3("");
+            view.setMessage4("");
             showPauseMenu = false;
             view.updatePause(showPauseMenu);
             repaint();
@@ -229,6 +231,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             view.setStart_message("");
             view.setMessage("");
             view.setMessage2("");
+            view.setMessage4("");
             view.setScore_info("");
             view.setBrick_info("");
             view.setBall_info("");
