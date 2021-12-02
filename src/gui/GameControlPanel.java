@@ -219,8 +219,13 @@ public class GameControlPanel {
     }
 
     public void nextLevel(){
-        setBricks(levels[level++]);
-        this.brickCount = getBricks().length;
+        try{
+            setBricks(levels[level++]);
+            this.brickCount = getBricks().length;
+        }
+        catch (Exception e){
+
+        }
     }
 
     public boolean hasLevel(){
