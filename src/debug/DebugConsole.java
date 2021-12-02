@@ -18,7 +18,7 @@
 package debug;
 
 import element.*;
-import main.*;
+import gui.*;
 
 import javax.swing.*;
 import java.awt.*;

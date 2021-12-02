@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +70,7 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
         g2d.drawString("3. Press [A] to move to left.", 50,152);
         g2d.drawString("4. Press [D] to move to right.", 50,174);
         g2d.drawString("5. Press [ESC] to open Pause Menu.", 50,196);
-        g2d.drawString("6. Press [ALT] + [SHIFT] + [F1] to open console.", 50,218);
+        g2d.drawString("6. Press [SHIFT] + [F1] to open console.", 50,218);
         g2d.drawString("7. Destroy all the brick and you will enter next level.", 50,240);
         g2d.drawString("8. Lose all 3 lives and you lose the game.", 50,262);
 

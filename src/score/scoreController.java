@@ -2,7 +2,6 @@ package score;
 
 //Import Package
 import element.*;
-import main.*;
 
 import javax.swing.*;
 import java.io.*;

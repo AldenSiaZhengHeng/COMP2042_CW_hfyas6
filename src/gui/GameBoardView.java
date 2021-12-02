@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import element.Ball;
 import element.Brick;
@@ -64,11 +64,15 @@ public class GameBoardView extends  JComponent{
         setBrick_info("");
         setBall_info("");
         setScore_info("");
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(owner);
-        this.addMouseListener(owner);
-        this.addMouseMotionListener(owner);
+    }
+
+    public void initialize(){
+        owner.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
+        owner.setFocusable(true);
+        owner.requestFocusInWindow();
+        owner.addKeyListener(owner);
+        owner.addMouseListener(owner);
+        owner.addMouseMotionListener(owner);
     }
 
     public void updatePause(boolean pause){
