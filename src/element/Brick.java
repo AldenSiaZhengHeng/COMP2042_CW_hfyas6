@@ -30,7 +30,7 @@ abstract public class Brick  {
     //Add score
     private scoreModel ScoreModel;
     private static int score;
-    private int gainscore = 1;
+    private int gainscore = 10;
 
     public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
         ScoreModel = new scoreModel();
