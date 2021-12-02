@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package main;
+package gui;
 
 import element.*;
 
@@ -47,9 +47,6 @@ public class GameControlPanel {
     private static int lineCount = 3;
     private Rectangle drawContainerArea;
 
-    //Add score
-    int score = 0;
-
     //Additional
     private Levels create_levels;
     Crack crack;
@@ -80,10 +77,12 @@ public class GameControlPanel {
 
         int speedX,speedY;
         do{
-            speedX = random.nextInt(5) - 2;
+            //speedX = random.nextInt(5) - 2;
+            speedX = 5;
         }while(speedX == 0);
         do{
-            speedY = -random.nextInt(3);
+            //speedY = -random.nextInt(3);
+            speedY = -5;
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
@@ -179,10 +178,12 @@ public class GameControlPanel {
         getBall().MoveToStartPoint(startPoint);
         int speedX,speedY;
         do{
-            speedX = random.nextInt(5) - 2;
+            //speedX = random.nextInt(5) - 2;
+            speedX = 5;
         }while(speedX == 0);
         do{
-            speedY = -random.nextInt(3);
+            //speedY = -random.nextInt(3);
+            speedY = -5;
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
