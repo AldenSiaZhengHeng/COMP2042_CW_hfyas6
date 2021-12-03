@@ -44,44 +44,28 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
 
     //HomeMenumodel
     private HomeMenuModel homemenuModel;
+    private HomeMenuView homeMenuView;
 
+    private Dimension area;
     //Constructor (HomeMenu)
     public HomeMenuController(GameFrame owner, Dimension area){
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-        this.setPreferredSize(area);
+
         this.owner = owner;
-
+        this.area = area;
         homemenuModel = new HomeMenuModel();
+        homeMenuView = new HomeMenuView(this);
+
         homemenuModel.setHomemenuFace(new Rectangle(new Point(0,0),area));
-
-        //Create a rectangle object
-        //menuFace = new Rectangle(new Point(0,0),area);
-
+        homeMenuView.initialize(area);
         homemenuModel.setButtonDimension(new Dimension(area.width / 2, area.height / 12));
         homemenuModel.setButtonDimension();
-        /**
-        //Create an button object
-        Dimension btnDim = new Dimension(area.width / 2, area.height / 12); //3,12
-        startButton = new Rectangle(btnDim);
-        menuButton = new Rectangle(btnDim);
-        instructionButton = new Rectangle(btnDim);
- **/
+
     }
+
 
     //Method to draw the Menu pages
     //Parameter is graphic context
     public void paint(Graphics g){
-        /**
-        HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
-        homeMenuDraw.setMenuFace(menuFace);
-        homeMenuDraw.setButton(startButton,menuButton,instructionButton);
-        homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
-        homeMenuDraw.drawMenu((Graphics2D)g);
-         **/
-        HomeMenuView homeMenuView = new HomeMenuView(owner);
         homeMenuView.setMenuFace(homemenuModel.getHomemenuFace());
         homeMenuView.setButton(homemenuModel.getStartButton(), homemenuModel.getExitButton(), homemenuModel.getInstructionButton());
         homeMenuView.setClick(startClicked,menuClicked,instructionClicked);
