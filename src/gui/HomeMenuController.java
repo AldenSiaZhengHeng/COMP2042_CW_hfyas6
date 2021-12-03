@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
+public class HomeMenuController extends JComponent implements MouseListener, MouseMotionListener {
 
     //Assign Shape
     private Rectangle menuFace;
@@ -46,7 +46,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private HomeMenuModel homemenuModel;
 
     //Constructor (HomeMenu)
-    public HomeMenu(GameFrame owner,Dimension area){
+    public HomeMenuController(GameFrame owner, Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addMouseListener(this);
@@ -81,11 +81,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
         homeMenuDraw.drawMenu((Graphics2D)g);
          **/
-        HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
-        homeMenuDraw.setMenuFace(homemenuModel.getHomemenuFace());
-        homeMenuDraw.setButton(homemenuModel.getStartButton(), homemenuModel.getExitButton(), homemenuModel.getInstructionButton());
-        homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
-        homeMenuDraw.drawMenu((Graphics2D)g);
+        HomeMenuView homeMenuView = new HomeMenuView(owner);
+        homeMenuView.setMenuFace(homemenuModel.getHomemenuFace());
+        homeMenuView.setButton(homemenuModel.getStartButton(), homemenuModel.getExitButton(), homemenuModel.getInstructionButton());
+        homeMenuView.setClick(startClicked,menuClicked,instructionClicked);
+        homeMenuView.drawMenu((Graphics2D)g);
     }
 
 

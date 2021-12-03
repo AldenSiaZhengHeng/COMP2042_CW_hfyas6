@@ -30,7 +30,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private static final String DEF_TITLE = "Brick Destroy";
 
     private GameController gameController;
-    private HomeMenu homeMenu;
+    private HomeMenuController homeMenuController;
 
     private boolean gaming;
 
@@ -54,10 +54,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setIconImage(icon);
 
 
-        homeMenu = new HomeMenu(this,new Dimension(600,450));//450, 300
+        homeMenuController = new HomeMenuController(this,new Dimension(600,450));//450, 300
 
         //Add object to the container
-        this.add(homeMenu,BorderLayout.CENTER);
+        this.add(homeMenuController,BorderLayout.CENTER);
 
         //This will hide the frame on homemenu
         //this.setUndecorated(true);
@@ -77,7 +77,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableHomeMenu(){
         this.dispose();
         this.remove(instruction);
-        this.add(homeMenu,BorderLayout.CENTER);
+        this.add(homeMenuController,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
@@ -86,7 +86,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     public void enableGameBoard(){
         this.dispose();
-        this.remove(homeMenu);
+        this.remove(homeMenuController);
         this.add(gameController,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
@@ -97,7 +97,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     public void enableInstructionPanel(){
         this.dispose();
-        this.remove(homeMenu);
+        this.remove(homeMenuController);
         this.add(instruction,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
