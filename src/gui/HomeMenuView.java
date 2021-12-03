@@ -8,7 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 
-public class HomeMenuDraw extends JComponent {
+public class HomeMenuView extends JComponent {
 
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
@@ -31,17 +31,15 @@ public class HomeMenuDraw extends JComponent {
 
     //Create New instruction button and high score button
     private Rectangle instructionButton;
-    private Rectangle score;
 
     private boolean instructionClicked;
-    private boolean scoreClicked;
 
     private static final String instruction_TEXT = "INFO";
 
     private Image Background;
 
 
-    public HomeMenuDraw(GameFrame Owner){
+    public HomeMenuView(GameFrame Owner){
         this.owner = Owner;
     }
 
