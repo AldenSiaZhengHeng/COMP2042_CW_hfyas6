@@ -49,7 +49,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         gameController = new GameController(this);
 
         //Add Icon images
-        icon = Toolkit.getDefaultToolkit().getImage("src/Images/brick_Icon.jpg");
+        icon = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/brick_Icon.jpg");
         icon = icon.getScaledInstance(120,120, java.awt.Image.SCALE_SMOOTH);
         this.setIconImage(icon);
 

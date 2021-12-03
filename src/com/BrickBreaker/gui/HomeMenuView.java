@@ -61,7 +61,7 @@ public class HomeMenuView extends JComponent {
 
     //Method to draw menu
     public void drawMenu(Graphics2D g2d){
-        Background = Toolkit.getDefaultToolkit().getImage("src/Images/homeMenu_background.jpg");
+        Background = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/homeMenu_background.jpg");
         g2d.drawImage(Background, 0, 0, (int)menuFace.getWidth(), (int)menuFace.getHeight(),this);
 
         font = new WordFontStyle();

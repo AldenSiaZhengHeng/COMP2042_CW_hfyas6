@@ -46,7 +46,7 @@ public class scoreController {
         }
 
         if(ScoreModel.getScore() > highSc || GetHighScore()==null){
-            String name = JOptionPane.showInputDialog("You set a new high com.BrickBreaker.score. What is your name?");
+            String name = JOptionPane.showInputDialog("You set a new high score. What is your name?");
             String scoring = name + ":" + ScoreModel.getScore();
             writeFile(scoring,ScoreModel.getScore());
         }
@@ -58,7 +58,7 @@ public class scoreController {
         BufferedReader reader = null;
         try
         {
-            readFile = new FileReader("src/com.BrickBreaker.score/highscore.txt");
+            readFile = new FileReader("src/com/BrickBreaker/score/highscore.txt");
             reader = new BufferedReader(readFile);
             return reader.readLine();
         }
@@ -79,7 +79,7 @@ public class scoreController {
     }
 
     public void writeFile(String name,int score){
-        File scoreFile = new File("src/com.BrickBreaker.score/highscore.txt");
+        File scoreFile = new File("src/com/BrickBreaker/score/highscore.txt");
         if(!scoreFile.exists()) {
             try {
                 scoreFile.createNewFile();
