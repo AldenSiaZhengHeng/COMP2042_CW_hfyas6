@@ -57,7 +57,6 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
     public GameController(JFrame owner){
         super();
-        //this.initialize();
         showPauseMenu = false;
         gameModel = new GameModel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner, gameModel,this);
@@ -65,13 +64,9 @@ public class GameController extends JComponent implements KeyListener,MouseListe
         ScoreController = new scoreController();
         ScoreModel = new scoreModel();
         view.initialize();
-        view.setMessage("");
-        view.setMessage2("");
-        view.setMessage3("");
-        view.setStart_message("Press Space to Start");
-        view.setBrick_info("");
-        view.setBall_info("");
-        view.setScore_info("");
+        view.initialize_message();
+        view.setStart_message("Press Space to Start..");
+
 
         view.updatePause(showPauseMenu);
         //initialize the first level
@@ -84,12 +79,9 @@ public class GameController extends JComponent implements KeyListener,MouseListe
             gameModel.move();
             gameModel.findImpacts();
 
-            view.setStart_message("");
-            view.setMessage("");
-            view.setMessage2("");
-            view.setMessage3("");
-            view.setBrick_info(String.format("Bricks: %d", gameModel.getBrickCount()));
+            view.initialize_message();
 
+            view.setBrick_info(String.format("Bricks: %d", gameModel.getBrickCount()));
             if(gameModel.getBallCount() == 3){
                 view.setBall_info(String.format("Balls: ⚽ ⚽ ⚽", gameModel.getBallCount()));
             }
@@ -109,12 +101,8 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                 ScoreController.givePenalty();
                 if(gameModel.ballEnd()){
                     gameModel.wallReset();
+                    view.initialize_message();
                     view.setMessage("Game over");
-                    view.setMessage2("");
-                    view.setMessage3("");
-                    view.setBrick_info("");
-                    view.setScore_info("");
-                    view.setBall_info("");
                     ScoreController.checkScore(view.getHighScore());
                 }
                 gameModel.ballReset();
@@ -139,16 +127,6 @@ public class GameController extends JComponent implements KeyListener,MouseListe
         });
 
     }
-
-    private void initialize(){
-        this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-    }
-
 
     public void paint(Graphics g){
 
@@ -194,8 +172,7 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                         gameTimer.start();
                 break;
             case KeyEvent.VK_F1:
-                //if(keyEvent.isAltDown() && keyEvent.isShiftDown())
-                if(keyEvent.isShiftDown())
+                if(keyEvent.isAltDown() && keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
                 gameModel.getPlayer().stop();
@@ -214,27 +191,15 @@ public class GameController extends JComponent implements KeyListener,MouseListe
             return;
 
         if(view.getContinueButtonRect().contains(p)){
-            view.setMessage2("Press Space to continue..");
-            view.setHighScore("");
-            view.setStart_message("");
-            view.setMessage("");
-            view.setMessage3("");
-            view.setMessage4("");
+            view.initialize_message();
+            view.setMessage4("Press Space to continue..");
             showPauseMenu = false;
             view.updatePause(showPauseMenu);
             repaint();
         }
         else if(view.getRestartButtonRect().contains(p)){
-
+            view.initialize_message();
             view.setMessage3("Restarting Game...");
-            view.setHighScore("");
-            view.setStart_message("");
-            view.setMessage("");
-            view.setMessage2("");
-            view.setMessage4("");
-            view.setScore_info("");
-            view.setBrick_info("");
-            view.setBall_info("");
 
             gameModel.ballReset();
             gameModel.wallReset();

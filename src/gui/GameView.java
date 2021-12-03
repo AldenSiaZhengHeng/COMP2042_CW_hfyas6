@@ -19,10 +19,6 @@ public class GameView extends  JComponent{
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
 
-    private static final Color BG_COLOR = Color.WHITE;
-
-
-
     private String message;
     private String message2;
     private String message3;
@@ -33,21 +29,16 @@ public class GameView extends  JComponent{
     private String score_info;
 
     private String highScore="";
-    public void setHighScore(String HighScore){this.highScore = HighScore;}
-    public String getHighScore(){return highScore;}
+
     private boolean showPauseMenu;
 
     private Rectangle continueButtonRect;
-    public Rectangle getContinueButtonRect(){return continueButtonRect;}
     private Rectangle exitButtonRect;
-    public Rectangle getExitButtonRect(){return exitButtonRect;}
     private Rectangle restartButtonRect;
-    public Rectangle getRestartButtonRect(){return restartButtonRect;}
 
     private int strLen;
 
     private WordFontStyle font;
-    private Brick brick;
 
     private GameController owner;
 
@@ -58,11 +49,15 @@ public class GameView extends  JComponent{
         strLen = 0;
         showPauseMenu = false;
 
+        initialize_message();
+    }
+
+    public void initialize_message(){
         setMessage("");
         setMessage2("");
         setMessage3("");
         setMessage4("");
-        setStart_message("Press Space to Start...");
+        setStart_message("");
         setBrick_info("");
         setBall_info("");
         setScore_info("");
@@ -219,9 +214,6 @@ public class GameView extends  JComponent{
         }
 
         g2d.drawString(EXIT,x,y);
-
-
-
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
     }
@@ -288,5 +280,25 @@ public class GameView extends  JComponent{
 
     public void setMessage4(String message4) {
         this.message4 = message4;
+    }
+
+    public Rectangle getContinueButtonRect(){
+        return continueButtonRect;
+    }
+
+    public Rectangle getExitButtonRect(){
+        return exitButtonRect;
+    }
+
+    public Rectangle getRestartButtonRect(){
+        return restartButtonRect;
+    }
+
+    public void setHighScore(String HighScore){
+        this.highScore = HighScore;
+    }
+
+    public String getHighScore(){
+        return highScore;
     }
 }
