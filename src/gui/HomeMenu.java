@@ -42,33 +42,48 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle instructionButton;
     private boolean instructionClicked;
 
+    //HomeMenumodel
+    private HomeMenuModel homemenuModel;
+
     //Constructor (HomeMenu)
     public HomeMenu(GameFrame owner,Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.setPreferredSize(area);
         this.owner = owner;
 
+        homemenuModel = new HomeMenuModel();
+        homemenuModel.setHomemenuFace(new Rectangle(new Point(0,0),area));
+
         //Create a rectangle object
-        menuFace = new Rectangle(new Point(0,0),area);
+        //menuFace = new Rectangle(new Point(0,0),area);
 
-        //(also its related setMinimumSize and setMaximumSize) -- use when a parent layout manager exists.
-        this.setPreferredSize(area);
-
+        homemenuModel.setButtonDimension(new Dimension(area.width / 2, area.height / 12));
+        homemenuModel.setButtonDimension();
+        /**
         //Create an button object
         Dimension btnDim = new Dimension(area.width / 2, area.height / 12); //3,12
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
         instructionButton = new Rectangle(btnDim);
+ **/
     }
 
     //Method to draw the Menu pages
     //Parameter is graphic context
     public void paint(Graphics g){
+        /**
         HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
         homeMenuDraw.setMenuFace(menuFace);
         homeMenuDraw.setButton(startButton,menuButton,instructionButton);
+        homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
+        homeMenuDraw.drawMenu((Graphics2D)g);
+         **/
+        HomeMenuDraw homeMenuDraw = new HomeMenuDraw(owner);
+        homeMenuDraw.setMenuFace(homemenuModel.getHomemenuFace());
+        homeMenuDraw.setButton(homemenuModel.getStartButton(), homemenuModel.getExitButton(), homemenuModel.getInstructionButton());
         homeMenuDraw.setClick(startClicked,menuClicked,instructionClicked);
         homeMenuDraw.drawMenu((Graphics2D)g);
     }
@@ -77,15 +92,18 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p)){
+        //if(startButton.contains(p)){
+        if(homemenuModel.getStartButton().contains(p)){
            owner.enableGameBoard();
 
         }
-        else if(menuButton.contains(p)){
+        //else if(menuButton.contains(p)){
+        else if(homemenuModel.getExitButton().contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
-        else if(instructionButton.contains(p)){
+        //else if(instructionButton.contains(p)){
+        else if(homemenuModel.getInstructionButton().contains(p)){
             owner.enableInstructionPanel();
         }
     }
@@ -93,18 +111,21 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p)){
+        //if(startButton.contains(p)){
+        if(homemenuModel.getStartButton().contains(p)){
             startClicked = true;
             startButtonRepaint();
 
         }
-        else if(menuButton.contains(p)){
+        //else if(menuButton.contains(p)){
+        else if(homemenuModel.getExitButton().contains(p)){
             menuClicked = true;
             menuButtonRepaint();
         }
 
         //Add instruction function
-        else if(instructionButton.contains(p)){
+       // else if(instructionButton.contains(p)){
+        else if(homemenuModel.getInstructionButton().contains(p)){
             instructionClicked = true;
             instructionButtonRepaint();
         }
@@ -145,7 +166,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p) || menuButton.contains(p) || instructionButton.contains(p))
+        //if(startButton.contains(p) || menuButton.contains(p) || instructionButton.contains(p))
+        if(homemenuModel.getStartButton().contains(p) || homemenuModel.getExitButton().contains(p) || homemenuModel.getInstructionButton().contains(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
@@ -154,14 +176,16 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     //Create new method for repaint startButton and menuButton
     public void startButtonRepaint(){
-        repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+       // repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+        repaint(homemenuModel.getStartButton().x,homemenuModel.getStartButton().y,homemenuModel.getStartButton().width+1,homemenuModel.getStartButton().height+1);
     }
 
     public void menuButtonRepaint(){
-        repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+        //repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+        repaint(homemenuModel.getExitButton().x,homemenuModel.getExitButton().y,homemenuModel.getExitButton().width+1,homemenuModel.getExitButton().height+1);
     }
 
     public void instructionButtonRepaint(){
-        repaint(instructionButton.x,instructionButton.y,instructionButton.width+1,instructionButton.height+1);
+        repaint(homemenuModel.getInstructionButton().x,homemenuModel.getInstructionButton().y,homemenuModel.getInstructionButton().width+1,homemenuModel.getInstructionButton().height+1);
     }
 }
