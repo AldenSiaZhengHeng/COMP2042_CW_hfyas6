@@ -15,10 +15,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package debug;
+package com.BrickBreaker.debug;
 
-import element.*;
-import gui.*;
+import com.BrickBreaker.element.*;
+import com.BrickBreaker.gui.*;
 
 import javax.swing.*;
 import java.awt.*;

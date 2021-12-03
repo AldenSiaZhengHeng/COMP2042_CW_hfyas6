@@ -1,4 +1,4 @@
-package gui;
+package com.BrickBreaker.gui;
 
 import java.awt.*;
 

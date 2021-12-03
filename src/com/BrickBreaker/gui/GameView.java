@@ -1,8 +1,8 @@
-package gui;
+package com.BrickBreaker.gui;
 
-import element.Ball;
-import element.Brick;
-import element.Player;
+import com.BrickBreaker.element.Ball;
+import com.BrickBreaker.element.Brick;
+import com.BrickBreaker.element.Player;
 
 import javax.swing.*;
 import java.awt.*;

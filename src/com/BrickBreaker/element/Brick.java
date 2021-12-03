@@ -1,7 +1,7 @@
-package element;
+package com.BrickBreaker.element;
 
 //Import package
-import score.*;
+import com.BrickBreaker.score.*;
 
 import java.awt.*;
 import java.awt.Point;
@@ -27,7 +27,7 @@ abstract public class Brick  {
     private Color border;
     private Color inner;
 
-    //Add score
+    //Add com.BrickBreaker.score
     private scoreModel ScoreModel;
     private static int score;
     private int gainscore = 10;

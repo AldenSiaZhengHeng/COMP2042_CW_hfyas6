@@ -1,4 +1,4 @@
-package score;
+package com.BrickBreaker.score;
 
 public class scoreModel {
     private static int score;

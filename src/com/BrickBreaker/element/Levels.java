@@ -1,4 +1,4 @@
-package element;
+package com.BrickBreaker.element;
 
 import java.awt.*;
 

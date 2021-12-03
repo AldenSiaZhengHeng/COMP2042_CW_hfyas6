@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package gui;
+package com.BrickBreaker.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
     private boolean menuClicked;
 
 
-    //Add instruction button and score button
+    //Add instruction button and com.BrickBreaker.score button
     private Rectangle instructionButton;
     private boolean instructionClicked;
 

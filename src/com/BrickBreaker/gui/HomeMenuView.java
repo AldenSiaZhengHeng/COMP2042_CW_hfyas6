@@ -1,4 +1,4 @@
-package gui;
+package com.BrickBreaker.gui;
 
 //Add and import package
 
@@ -29,7 +29,7 @@ public class HomeMenuView extends JComponent {
     private boolean startClicked;
     private boolean exitClicked;
 
-    //Create New instruction button and high score button
+    //Create New instruction button and high com.BrickBreaker.score button
     private Rectangle instructionButton;
 
     private boolean instructionClicked;
