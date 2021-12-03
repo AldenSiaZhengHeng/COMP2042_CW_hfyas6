@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package main;
+package gui;
 
 import element.*;
 
@@ -23,7 +23,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-public class GameControlPanel {
+public class GameModel {
 
     private Random random;
     private Rectangle area;
@@ -47,15 +47,12 @@ public class GameControlPanel {
     private static int lineCount = 3;
     private Rectangle drawContainerArea;
 
-    //Add score
-    int score = 0;
-
     //Additional
     private Levels create_levels;
     Crack crack;
     //public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos)
 
-    public GameControlPanel(Rectangle drawArea){
+    public GameModel(Rectangle drawArea){
     //wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         //this.startPoint = new Point(ballPos);
@@ -80,10 +77,12 @@ public class GameControlPanel {
 
         int speedX,speedY;
         do{
-            speedX = random.nextInt(5) - 2;
+            //speedX = random.nextInt(5) - 2;
+            speedX = 5;
         }while(speedX == 0);
         do{
-            speedY = -random.nextInt(3);
+            //speedY = -random.nextInt(3);
+            speedY = -5;
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
@@ -179,10 +178,12 @@ public class GameControlPanel {
         getBall().MoveToStartPoint(startPoint);
         int speedX,speedY;
         do{
-            speedX = random.nextInt(5) - 2;
+            //speedX = random.nextInt(5) - 2;
+            speedX = 5;
         }while(speedX == 0);
         do{
-            speedY = -random.nextInt(3);
+            //speedY = -random.nextInt(3);
+            speedY = -5;
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
@@ -218,8 +219,13 @@ public class GameControlPanel {
     }
 
     public void nextLevel(){
-        setBricks(levels[level++]);
-        this.brickCount = getBricks().length;
+        try{
+            setBricks(levels[level++]);
+            this.brickCount = getBricks().length;
+        }
+        catch (Exception e){
+
+        }
     }
 
     public boolean hasLevel(){

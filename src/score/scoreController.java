@@ -2,7 +2,6 @@ package score;
 
 //Import Package
 import element.*;
-import main.*;
 
 import javax.swing.*;
 import java.io.*;
@@ -10,6 +9,25 @@ import java.io.*;
 public class scoreController {
     private Brick brick;
     private scoreModel ScoreModel;
+
+    public void givebonus(int ball_lives){
+        if(ball_lives == 3){
+            ScoreModel.bonusScore(30);
+        }
+        else if(ball_lives == 2){
+            ScoreModel.bonusScore(20);
+        }
+        else if(ball_lives == 1){
+            ScoreModel.bonusScore(10);
+        }
+        else{
+        }
+    }
+
+    public void givePenalty(){
+        ScoreModel.penalty(50);
+    }
+
 
     public scoreController() {
         ScoreModel = new scoreModel();

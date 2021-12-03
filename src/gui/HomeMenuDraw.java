@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 //Add and import package
 
@@ -13,8 +13,8 @@ public class HomeMenuDraw extends JComponent {
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
-    private static final String START_TEXT = "Start";
-    private static final String MENU_TEXT = "Exit";
+    private static final String START_TEXT = "START";
+    private static final String MENU_TEXT = "EXIT";
 
     private static final Color TEXT_COLOR = new Color(245, 222, 179);
     private static final Color CLICKED_TEXT = Color.WHITE;
@@ -36,7 +36,7 @@ public class HomeMenuDraw extends JComponent {
     private boolean instructionClicked;
     private boolean scoreClicked;
 
-    private static final String instruction_TEXT = "Instruction";
+    private static final String instruction_TEXT = "INFO";
 
     private Image Background;
 

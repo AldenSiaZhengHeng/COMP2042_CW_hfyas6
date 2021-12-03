@@ -30,7 +30,7 @@ public class SteelBrick extends Brick {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private static final int gainScore = 2;
+    private static final int gainScore = 40;
 
     private Random random;
     private Shape brickFace;

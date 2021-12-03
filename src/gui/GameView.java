@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import element.Ball;
 import element.Brick;
@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 
-public class GameBoardView extends  JComponent{
+public class GameView extends  JComponent{
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
@@ -26,6 +26,7 @@ public class GameBoardView extends  JComponent{
     private String message;
     private String message2;
     private String message3;
+    private String message4;
     private String start_message;
     private String brick_info;
     private String ball_info;
@@ -48,10 +49,10 @@ public class GameBoardView extends  JComponent{
     private WordFontStyle font;
     private Brick brick;
 
-    private GameBoard owner;
+    private GameController owner;
 
 
-    public GameBoardView(GameBoard owner){
+    public GameView(GameController owner){
         this.owner = owner;
         font = new WordFontStyle();
         strLen = 0;
@@ -60,15 +61,20 @@ public class GameBoardView extends  JComponent{
         setMessage("");
         setMessage2("");
         setMessage3("");
+        setMessage4("");
         setStart_message("Press Space to Start...");
         setBrick_info("");
         setBall_info("");
         setScore_info("");
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(owner);
-        this.addMouseListener(owner);
-        this.addMouseMotionListener(owner);
+    }
+
+    public void initialize(){
+        owner.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
+        owner.setFocusable(true);
+        owner.requestFocusInWindow();
+        owner.addKeyListener(owner);
+        owner.addMouseListener(owner);
+        owner.addMouseMotionListener(owner);
     }
 
     public void updatePause(boolean pause){
@@ -96,8 +102,9 @@ public class GameBoardView extends  JComponent{
         g2d.setFont(new Font("Stencil",Font.BOLD,30));
         g2d.drawString(getHighScore(), 160,120);
         g2d.drawString(getMessage(),220,150);
-        g2d.drawString(getMessage2(),120,150);
+        g2d.drawString(getMessage2(),180,150);
         g2d.drawString(getMessage3(),160,150);
+        g2d.drawString(getMessage4(),120,150);
         g2d.drawString(getStart_message(),120,180);
         g2d.setFont(new Font("Aharoni",Font.BOLD,20));
         g2d.drawString(getBrick_info(),250,210);
@@ -273,5 +280,13 @@ public class GameBoardView extends  JComponent{
 
     public void setScore_info(String score_info) {
         this.score_info = score_info;
+    }
+
+    public String getMessage4() {
+        return message4;
+    }
+
+    public void setMessage4(String message4) {
+        this.message4 = message4;
     }
 }
