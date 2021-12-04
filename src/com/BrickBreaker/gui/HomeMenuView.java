@@ -19,7 +19,6 @@ public class HomeMenuView extends JComponent {
     private static final Color TEXT_COLOR = new Color(245, 222, 179);
     private static final Color CLICKED_TEXT = Color.WHITE;
 
-    private HomeMenuController owner;
     private WordFontStyle font;
 
     private Rectangle menuFace;
@@ -38,12 +37,7 @@ public class HomeMenuView extends JComponent {
 
     private Image Background;
 
-
-    public HomeMenuView(HomeMenuController Owner){
-        this.owner = Owner;
-    }
-
-    public void initialize(Dimension area){
+    public void initialize(HomeMenuController owner,Dimension area){
         owner.setFocusable(true);
         owner.requestFocusInWindow();
         owner.addMouseListener(owner);

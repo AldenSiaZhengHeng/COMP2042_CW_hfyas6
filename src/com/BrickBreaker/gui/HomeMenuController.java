@@ -48,15 +48,15 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
 
     private Dimension area;
     //Constructor (HomeMenu)
-    public HomeMenuController(GameFrame owner, Dimension area){
+    public HomeMenuController(GameFrame owner, Dimension area,HomeMenuModel homeMenuModel, HomeMenuView homeMenuView){
 
         this.owner = owner;
         this.area = area;
-        homemenuModel = new HomeMenuModel();
-        homeMenuView = new HomeMenuView(this);
+        this.homemenuModel = homeMenuModel;
+        this.homeMenuView = homeMenuView;
 
         homemenuModel.setHomemenuFace(new Rectangle(new Point(0,0),area));
-        homeMenuView.initialize(area);
+        homeMenuView.initialize(this,area);
         homemenuModel.setButtonDimension(new Dimension(area.width / 2, area.height / 12));
         homemenuModel.setButtonDimension();
 
