@@ -29,8 +29,13 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
+    private GameModel gameModel;
+    private GameView gameView;
     private GameController gameController;
+
     private HomeMenuController homeMenuController;
+    private HomeMenuModel homeMenuModel;
+    private HomeMenuView homeMenuView;
 
     private boolean gaming;
 
@@ -41,20 +46,21 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     public GameFrame(){
         super();
-
         gaming = false;
 
         this.setLayout(new BorderLayout());
-
-        gameController = new GameController(this);
-
         //Add Icon images
         icon = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/brick_Icon.jpg");
         icon = icon.getScaledInstance(120,120, java.awt.Image.SCALE_SMOOTH);
         this.setIconImage(icon);
 
+        gameModel = new GameModel(new Rectangle(0,0,600,450));
+        gameView = new GameView();
+        gameController = new GameController(this, gameModel,gameView);
 
-        homeMenuController = new HomeMenuController(this,new Dimension(600,450));//450, 300
+        homeMenuModel = new HomeMenuModel();
+        homeMenuView = new HomeMenuView();
+        homeMenuController = new HomeMenuController(this,new Dimension(600,450),homeMenuModel,homeMenuView);//450, 300
 
         //Add object to the container
         this.add(homeMenuController,BorderLayout.CENTER);
