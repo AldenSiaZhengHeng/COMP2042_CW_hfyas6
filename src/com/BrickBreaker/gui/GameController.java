@@ -51,19 +51,21 @@ public class GameController extends JComponent implements KeyListener,MouseListe
     private Brick brick;
 
     //Score
-    private String highScore = "";
     private scoreController ScoreController;
     private scoreModel ScoreModel;
 
-    public GameController(JFrame owner){
+    public GameController(JFrame owner, GameModel gameModel, GameView gameView){
         super();
-        showPauseMenu = false;
-        gameModel = new GameModel(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
+
+        this.view = gameView;
+        this.gameModel = gameModel;
         debugConsole = new DebugConsole(owner, gameModel,this);
-        view = new GameView(this);
+
         ScoreController = new scoreController();
         ScoreModel = new scoreModel();
-        view.initialize();
+        showPauseMenu = false;
+
+        view.initialize(this);
         view.initialize_message();
         view.setStart_message("Press Space to Start..");
 

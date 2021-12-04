@@ -43,8 +43,7 @@ public class GameView extends  JComponent{
     private GameController owner;
 
 
-    public GameView(GameController owner){
-        this.owner = owner;
+    public GameView(){
         font = new WordFontStyle();
         strLen = 0;
         showPauseMenu = false;
@@ -63,7 +62,8 @@ public class GameView extends  JComponent{
         setScore_info("");
     }
 
-    public void initialize(){
+    public void initialize(GameController Owner){
+        this.owner = Owner;
         owner.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
         owner.setFocusable(true);
         owner.requestFocusInWindow();
