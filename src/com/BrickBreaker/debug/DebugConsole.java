@@ -25,17 +25,29 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * This is the DebugConsole class to create the pop put of the debug panel
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
-
-
     private JFrame owner;
     private DebugPanel debugPanel;
     private GameController gameController;
     private GameModel gameModel;
 
 
+    /**
+     * The construtor of the DebugConsole class
+     * Assign the parameter to the variable
+     * Call the method to initialize the panel
+     * @param owner The object of the Jframe
+     * @param gameModel The object of the GameModel
+     * @param gameController The object of the GameController
+     */
     public DebugConsole(JFrame owner, GameModel gameModel, GameController gameController){
 
         this.gameModel = gameModel;
@@ -46,10 +58,12 @@ public class DebugConsole extends JDialog implements WindowListener{
         debugPanel = new DebugPanel(gameModel);
         this.add(debugPanel,BorderLayout.CENTER);
 
-
         this.pack();
     }
 
+    /**
+     * This method will set the title of the dialog pop out and show on the preferred size
+     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
@@ -60,6 +74,9 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
 
+    /**
+     * This method will allocate the pop out panel on the middle of the screen
+     */
     private void setLocation(){
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
@@ -72,6 +89,10 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     }
 
+    /**
+     * This will update the screen when the debug panel is closed
+     * @param windowEvent The status of the window
+     */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         gameController.repaint();
@@ -92,6 +113,10 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     }
 
+    /**
+     * Activate the dialog and set the ball speed based on the slider changes
+     * @param windowEvent The status of the window
+     */
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();

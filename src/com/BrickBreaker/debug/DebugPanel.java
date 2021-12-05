@@ -25,20 +25,29 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-
+/**
+ * This is the DebugPanel Class create the button and slider to show on the debug dialog panel
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class DebugPanel extends JPanel {
 
     private static final Color DEF_BKG = Color.WHITE;
 
-
+    //JButton and JSlider created
     private JButton skipLevel;
     private JButton resetBalls;
-
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
     private GameModel gameModel;
 
+    /**
+     * The constructor of the DebugPanel class
+     * Assign the function and variable
+     * @param gameModel The object of the GameModel class
+     */
     public DebugPanel(GameModel gameModel){
 
         this.gameModel = gameModel;
@@ -59,17 +68,33 @@ public class DebugPanel extends JPanel {
 
     }
 
+    /**
+     * To set the color of the background and the layout for the debug panel
+     */
     private void initialize(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(2,2));
     }
 
+    /**
+     * This method will create the button and return the action
+     * @param title The string to show on the button
+     * @param e The action on the button
+     * @return The action listened from the button
+     */
     private JButton makeButton(String title, ActionListener e){
         JButton out = new JButton(title);
         out.addActionListener(e);
-        return  out;
+        return out;
     }
 
+    /**
+     * This method will create the slider to adjust the speed of the ball
+     * @param min Minimum value to be set for the ball
+     * @param max Maximum value to be set for the ball
+     * @param e The action on the slider
+     * @return The changes on the slider
+     */
     private JSlider makeSlider(int min, int max, ChangeListener e){
         JSlider out = new JSlider(min,max);
         out.setMajorTickSpacing(1);
@@ -79,6 +104,11 @@ public class DebugPanel extends JPanel {
         return out;
     }
 
+    /**
+     * To adjust the speed of the ball
+     * @param x Horizontal speed of the ball
+     * @param y Vertical speed of the ball
+     */
     public void setValues(int x,int y){
         ballXSpeed.setValue(x);
         ballYSpeed.setValue(y);
