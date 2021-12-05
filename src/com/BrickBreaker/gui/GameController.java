@@ -63,13 +63,13 @@ public class GameController extends JComponent implements KeyListener,MouseListe
      * Create object for the class used
      * Create timer system and update the game and message in the game
      * @param owner The object of the GameFrame
-     * @param gameModel The object of the GameModel
+     * @param gamemodel The object of the GameModel
      * @param gameView The object of the GaemView
      */
-    public GameController(JFrame owner, GameModel gameModel, GameView gameView){
+    public GameController(JFrame owner, GameModel gamemodel, GameView gameView){
         super();
         this.view = gameView;
-        this.gameModel = gameModel;
+        this.gameModel = gamemodel;
         debugConsole = new DebugConsole(owner, gameModel,this);
 
         ScoreController = new scoreController();
@@ -109,8 +109,10 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
             //Check if the ball is lost
             if(gameModel.isBallLost()){
+                view.setScore_info(String.format("Score: %d - 50. You noob", ScoreModel.getScore()));
                 ScoreController.givePenalty();
                 if(gameModel.ballEnd()){
+                    ScoreModel.setScore(0);
                     gameModel.wallReset();
                     view.initialize_message();
                     view.setMessage("Game over");
