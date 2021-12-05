@@ -2,6 +2,7 @@ package com.BrickBreaker.element;
 
 import java.awt.*;
 import java.awt.Point;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 /**
@@ -18,7 +19,7 @@ public class DiamondBrick extends Brick {
     private static final int DIAMOND_STRENGTH = 5;
     private static final int gainScore = 50;
     private Shape brickFace;
-
+    private Crack crack;
     /**
      * The constructor of DiamondBrick class
      * Pass variable to super class
@@ -29,22 +30,49 @@ public class DiamondBrick extends Brick {
     public DiamondBrick(Point point, Dimension size) {
         super(NAME, point, size,DEF_BORDER,DEF_INNER,DIAMOND_STRENGTH);
         brickFace = super.getBrickFace();
+        crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS,super.getBrickFace());
+    }
+
+
+    /**
+     * Update the brick face if the ball hit the brick
+     */
+    private void updateBrick(){
+        if(!super.isBroken()){
+            GeneralPath gp = crack.draw();
+            gp.append(super.getBrickFace(),false);
+            brickFace = gp;
+        }
     }
 
     /**
-     * This method is used to detect the impact between the brick and ball
-     * @param point The position of current ball
-     * @param dir The direction for the ball to bounce
-     * @return False if the brick is broken, True if there is a impact between ball and brick
+     * Determine the impact between the ball and brick
+     * Pass the score when the brick is broken
+     * @param point The location of the current brick
+     * @param dir   The direction of the ball
+     * @return
      */
     public boolean setImpact(Point2D point , int dir){
         if(super.isBroken()) {
             return false;
         }
         super.impact(gainScore);
-        return super.isBroken();
+        if(!super.isBroken()){
+            crack.makeCrack(point,dir);
+            updateBrick();
+            return false;
+        }
+        return true;
     }
 
+    /**
+     * Repair the crack on the interface of the brick when the game reset
+     */
+    public void repair(){
+        super.repair();
+        crack.reset();
+        brickFace = super.getBrickFace();
+    }
     /**
      * Getter method to get the interface of the brick
      * @return The interface of the brick
