@@ -21,19 +21,31 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
+/**
+ * This is RubberBall class to create the ball on the gamebaord
+ */
 public class RubberBall extends Ball {
-
 
     private static final int DEF_RADIUS = 10;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
-
+    /**
+     * The constructor of the RubberBall to pass the variable to the classes extended
+     * @param center The Position of the ball in Point2D
+     */
     public RubberBall(Point2D center){
         super(center,DEF_RADIUS,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
 
 
+    /**
+     * This method will set and return the interface,size and radius of the ball
+     * @param center The position of the ball in Point2D
+     * @param radiusA The horizontal radius to create the ball
+     * @param radiusB The vertical radius to create the ball
+     * @return The object of 2D Ellipse
+     */
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
 

@@ -6,11 +6,16 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 
+/**
+ * This is the Crack class to store the variable to make the crack effect on the brick
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class Crack{
 
     private static final int CRACK_SECTIONS = 3;
     private static final double JUMP_PROBABILITY = 0.7;
-
     public static final int LEFT = 10;
     public static final int RIGHT = 20;
     public static final int UP = 30;
@@ -18,47 +23,56 @@ public class Crack{
     public static final int VERTICAL = 100;
     public static final int HORIZONTAL = 200;
 
-
-
-    private GeneralPath crack;
-
     private int crackDepth;
     private int steps;
 
-    //Additional
     private Random random;
+    private Shape brickFace;
+    private GeneralPath crack;
     private Brick brick;
 
-    private Shape brickFace;
-
+    /**
+     * The constructor of crack class
+     * @param crackDepth The depth to draw the crack on the brick
+     * @param steps The value to set the crack on brick
+     * @param BrickFace The interface of the brick
+     */
     public Crack(int crackDepth, int steps, Shape BrickFace){
 
         crack = new GeneralPath();
         this.crackDepth = crackDepth;
         this.steps = steps;
-
         this.brickFace = BrickFace;
         random = brick.getRandom();
     }
 
 
+    /**
+     * Draw the crack effect on the brick
+     * @return The object of GeneralPath
+     */
     public GeneralPath draw(){
         return crack;
     }
 
-    //Reset the brick
+    /**
+     * Reset the crack effect on the brick
+     */
     public void reset(){
         crack.reset();
     }
 
-    //Randomly generate path from the impact point in a direction
+    /**
+     * Randomly generate path from the impact point in a direction
+     * @param point The position of the brick
+     * @param direction The direction of the ball to bounce
+     */
     protected void makeCrack(Point2D point, int direction){
         Rectangle bounds = brickFace.getBounds();
 
         Point impact = new Point((int)point.getX(),(int)point.getY());
         Point start = new Point();
         Point end = new Point();
-
 
         switch(direction){
             case LEFT:
@@ -91,7 +105,12 @@ public class Crack{
         }
     }
 
-    //Randomly generate path from start point to end point
+    /**
+     * Overloading method for making crack on the brick
+     * Randomly generate path from start point to end point
+     * @param start The impact point on the brick
+     * @param end Random point
+     */
     protected void makeCrack(Point start, Point end){
         GeneralPath path = new GeneralPath();
         path.moveTo(start.x,start.y);
@@ -119,18 +138,35 @@ public class Crack{
         crack.append(path,true);
     }
 
-    //gives a random between negative bound and bound
+    /**
+     * Gives a random between bound up and bound down
+     * @param bound  The crackDepth value
+     * @return Random direction when the ball hit the brick
+     */
     private int randomInBounds(int bound){
         int n = (bound * 2) + 1;
         return random.nextInt(n) - bound;
     }
 
+    /**
+     *  To determine whether the ball is still in the middle of air
+     * @param i The value in a for loop
+     * @param steps The crack sessions for brick
+     * @param divisions The value to set the crack on brick
+     * @return True if the ball still in the middle of the air, False when hit the brick
+     */
     private boolean inMiddle(int i,int steps,int divisions){
         int low = (steps / divisions);
         int up = low * (divisions - 1);
         return  (i > low) && (i < up);
     }
 
+    /**
+     * Randomly generate the point for the ball to bounce
+     * @param bound Current bounce point
+     * @param probability Probability to generate the bounce point
+     * @return The random generated bounce point
+     */
     private int jumps(int bound,double probability){
         if(random.nextDouble() > probability)
             return randomInBounds(bound);
@@ -138,6 +174,13 @@ public class Crack{
 
     }
 
+    /**
+     * Generate random point for the ball to bounce
+     * @param from Start point
+     * @param to End Point
+     * @param direction Direction of the ball bounces
+     * @return The random point generate
+     */
     private Point makeRandomPoint(Point from,Point to, int direction){
         Point out = new Point();
         int pos;
