@@ -60,7 +60,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLayout(new BorderLayout());
 
         //Add Icon images
-        icon = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/brick_Icon.jpg");
+        icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/Images/brick_Icon.jpg");
         icon = icon.getScaledInstance(120,120, java.awt.Image.SCALE_SMOOTH);
         this.setIconImage(icon);
 

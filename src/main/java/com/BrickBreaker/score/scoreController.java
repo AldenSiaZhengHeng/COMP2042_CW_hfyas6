@@ -81,7 +81,7 @@ public class scoreController {
         BufferedReader reader = null;
         try
         {
-            readFile = new FileReader("src/com/BrickBreaker/score/highscore.txt");
+            readFile = new FileReader("src/main/resources/scorelist/highscore.txt");
             reader = new BufferedReader(readFile);
             return reader.readLine();
         }
@@ -107,7 +107,7 @@ public class scoreController {
      * @param score Player's score to write in the txt file
      */
     public void writeFile(String name,int score){
-        File scoreFile = new File("src/com/BrickBreaker/score/highscore.txt");
+        File scoreFile = new File("src/main/resources/scorelist/highscore.txt");
         if(!scoreFile.exists()) {
             try {
                 scoreFile.createNewFile();

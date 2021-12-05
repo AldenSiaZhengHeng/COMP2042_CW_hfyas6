@@ -79,7 +79,7 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
      */
     public void instruction_list(Graphics2D g2d){
         //Take background image and show
-        Background = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/instruction_background.jpg");
+        Background = Toolkit.getDefaultToolkit().getImage("src/main/resources/Images/instruction_background.jpg");
         g2d.drawImage(Background, 0, 0, (int)instruction_Board.getWidth(), (int)instruction_Board.getHeight(),this);
 
         //Set the color and font for title
