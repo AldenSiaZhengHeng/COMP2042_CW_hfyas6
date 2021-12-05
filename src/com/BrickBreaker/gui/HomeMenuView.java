@@ -1,6 +1,5 @@
 package com.BrickBreaker.gui;
 
-//Add and import package
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,35 +7,46 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 
+/**
+ * This is the HomeMenuView class
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class HomeMenuView extends JComponent {
 
+    //Text for the homemenu
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "START";
     private static final String MENU_TEXT = "EXIT";
+    private static final String instruction_TEXT = "INFO";
 
+    //Color for the text
     private static final Color TEXT_COLOR = new Color(245, 222, 179);
     private static final Color CLICKED_TEXT = Color.WHITE;
 
-    private WordFontStyle font;
-
+    //Rectangle variable to create the board and button
     private Rectangle menuFace;
     private Rectangle startButton;
     private Rectangle exitButton;
-
-    private boolean startClicked;
-    private boolean exitClicked;
-
-    //Create New instruction button and high com.BrickBreaker.score button
     private Rectangle instructionButton;
 
+    //Variable to check the mouse clicked aciton
+    private boolean startClicked;
+    private boolean exitClicked;
     private boolean instructionClicked;
 
-    private static final String instruction_TEXT = "INFO";
-
+    //Object variable
     private Image Background;
+    private WordFontStyle font;
 
+    /**
+     * Add the key and mouse listener to the homemenu and set the preferred size of the homemenu
+     * @param owner HomeMenuController object
+     * @param area The area for creating the homemenu board
+     */
     public void initialize(HomeMenuController owner,Dimension area){
         owner.setFocusable(true);
         owner.requestFocusInWindow();
@@ -45,61 +55,72 @@ public class HomeMenuView extends JComponent {
         owner.setPreferredSize(area);
     }
 
+    /**
+     * To set the menuFace sizes
+     * @param MenuFace The variable to set the size of the Homemenu
+     */
     public void setMenuFace(Rectangle MenuFace){
         this.menuFace = MenuFace;
     }
 
-    public void setButton(Rectangle StartButton, Rectangle MenuButton, Rectangle InstructionButton) {
+    /**
+     * To set the size of the button in homemenu
+     * @param StartButton The variable to set the size of the startbutton
+     * @param ExitButton The variable to set the size of the Exitbutton
+     * @param InstructionButton The variable to set the size of the Instructionbutton
+     */
+    public void setButton(Rectangle StartButton, Rectangle ExitButton, Rectangle InstructionButton) {
         this.startButton = StartButton;
-        this.exitButton = MenuButton;
+        this.exitButton = ExitButton;
         this.instructionButton = InstructionButton;
     }
 
-    public void setClick(boolean StartClicked, boolean MenuClicked, boolean InstructionClicked) {
+    /**
+     * To get the instruction whether the button is clicked or not
+     * @param StartClicked The variable to determine the startbutton is clicked or not
+     * @param ExitClicked The variable to determine the Exittbutton is clicked or not
+     * @param InstructionClicked The variable to determine the Instructionbutton is clicked or not
+     */
+    public void setClick(boolean StartClicked, boolean ExitClicked, boolean InstructionClicked) {
         this.startClicked = StartClicked;
-        this.exitClicked = MenuClicked;
+        this.exitClicked = ExitClicked;
         this.instructionClicked = InstructionClicked;
     }
 
-    //Method to draw menu
+    /**
+     * This method is call the others draw methods to draw the homemenu
+     * @param g2d The object of the graphics in 2D
+     */
     public void drawMenu(Graphics2D g2d){
+        //Adding background images
         Background = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/homeMenu_background.jpg");
         g2d.drawImage(Background, 0, 0, (int)menuFace.getWidth(), (int)menuFace.getHeight(),this);
 
         font = new WordFontStyle();
 
-        /*
-        all the following method calls need a relative
-        painting directly into the HomeMenu rectangle,
-        so the translation is made here so the other methods do not do that.
-         */
         Color prevColor = g2d.getColor();
-
         Font prevFont = g2d.getFont();
 
         double x = menuFace.getX();
         double y = menuFace.getY();
 
         g2d.translate(x,y);
-
         drawText(g2d);
         drawButton(g2d);
 
         g2d.translate(-x,-y);
-
         g2d.setFont(prevFont);
-
         g2d.setColor(prevColor);
     }
 
+    /**
+     * This method will draw the title on the homemenu
+     * @param g2d The object of the graphics in 2D
+     */
     private void drawText(Graphics2D g2d){
-
         g2d.setColor(Color.black);
 
-        //Get the rendering context of the Font within this Graphics2D context.
         FontRenderContext frc = g2d.getFontRenderContext();
-
-        //Returns the bounds of the specified String in the specified Graphics context.
         Rectangle2D greetingsRect = font.getGreetingsFont().getStringBounds(GREETINGS,frc);
         Rectangle2D gameTitleRect = font.getGameTitleFont().getStringBounds(GAME_TITLE,frc);
         Rectangle2D creditsRect = font.getCreditsFont().getStringBounds(CREDITS,frc);
@@ -145,15 +166,18 @@ public class HomeMenuView extends JComponent {
         g2d.drawString(CREDITS,setX,setY);
     }
 
-    //Method to draw the button
+    /**
+     * This method will set the color and font of the button and draw them on the homemenu
+     * @param g2d The object of the graphics in 2D
+     */
     private void drawButton(Graphics2D g2d){
+        //Method to set the color of the button background
         g2d.setColor(TEXT_COLOR);
         g2d.fill(startButton);
         g2d.fill(instructionButton);
         g2d.fill(exitButton);
 
         FontRenderContext frc = g2d.getFontRenderContext();
-
         Rectangle2D txtRect = font.getButtonFont().getStringBounds(START_TEXT,frc);
         Rectangle2D mTxtRect = font.getButtonFont().getStringBounds(MENU_TEXT,frc);
         Rectangle2D iTxtRect = font.getButtonFont().getStringBounds(instruction_TEXT,frc);
@@ -161,7 +185,7 @@ public class HomeMenuView extends JComponent {
         g2d.setColor(Color.black);
         g2d.setFont(font.getButtonFont());
 
-        //Start Button
+        //Adjust the position of the startbutton
         int x1 = (menuFace.width - startButton.width) / 2;
         int y1 =(int) ((menuFace.height - startButton.height) * 0.6); //0.8
 
@@ -175,7 +199,7 @@ public class HomeMenuView extends JComponent {
 
         startButtonClicked(g2d,x1,y1);
 
-        //Instruction button
+        //Adjsut the position of the instruction button
         int x2 = startButton.x;
         int y2 = startButton.y;
 
@@ -191,14 +215,13 @@ public class HomeMenuView extends JComponent {
         instructionButtonClicked(g2d,x2,y2);
 
 
-        //Exit Button
+        //Adjust the position of the exit button
         int x3 = instructionButton.x;
         int y3 = instructionButton.y;
 
         y3 *= 1.17;
 
         exitButton.setLocation(x3,y3);
-
 
         x3 = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
         y3 = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
@@ -209,9 +232,13 @@ public class HomeMenuView extends JComponent {
         exitButtonClicked(g2d,x3,y3);
     }
 
+    /**
+     * To draw the startbutton with different effect depend whether there is clicked action
+     * @param g2d The object of the graphics in 2D
+     * @param x The x-axis of the text to draw
+     * @param y The y-axis of the text to draw
+     */
     public void startButtonClicked(Graphics2D g2d, int x, int y){
-        //May can refactor as the condition is not necessary
-        //Respond when click the start button and show that start button is clicked
         if(startClicked){
             Color tmp = g2d.getColor();
             g2d.setColor(CLICKED_TEXT);
@@ -227,6 +254,12 @@ public class HomeMenuView extends JComponent {
         }
     }
 
+    /**
+     * To draw the instructionbutton with different effect depend whether there is clicked action
+     * @param g2d The object of the graphics in 2D
+     * @param x The x-axis of the text to draw
+     * @param y The y-axis of the text to draw
+     */
     public void instructionButtonClicked(Graphics2D g2d, int x, int y){
         if(instructionClicked){
             Color tmp = g2d.getColor();
@@ -243,6 +276,12 @@ public class HomeMenuView extends JComponent {
     }
 
 
+    /**
+     * To draw the exitbutton with different effect depend whether there is clicked action
+     * @param g2d The object of the graphics in 2D
+     * @param x The x-axis of the text to draw
+     * @param y The y-axis of the text to draw
+     */
     public void exitButtonClicked(Graphics2D g2d, int x, int y){
         if(exitClicked){
             Color tmp = g2d.getColor();
@@ -258,9 +297,5 @@ public class HomeMenuView extends JComponent {
             g2d.drawString(MENU_TEXT,x,y);
         }
     }
-
-
-
-
 
 }

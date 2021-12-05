@@ -23,107 +23,120 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * This is the HomeMenuController class
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class HomeMenuController extends JComponent implements MouseListener, MouseMotionListener {
 
-    //Assign Shape
-    private Rectangle menuFace;
-    private Rectangle startButton;
-    private Rectangle menuButton;
 
     //Assign datatype of the GameFrame (class)
     private GameFrame owner;
 
-    //Assign boolean to the
+    //Variable to determine the button clicked
     private boolean startClicked;
-    private boolean menuClicked;
-
-
-    //Add instruction button and com.BrickBreaker.score button
-    private Rectangle instructionButton;
+    private boolean exitClicked;
     private boolean instructionClicked;
 
-    //HomeMenumodel
-    private HomeMenuModel homemenuModel;
+    //The object created
+    private HomeMenuModel homeMenuModel;
     private HomeMenuView homeMenuView;
 
     private Dimension area;
-    //Constructor (HomeMenu)
-    public HomeMenuController(GameFrame owner, Dimension area,HomeMenuModel homeMenuModel, HomeMenuView homeMenuView){
 
+    /**
+     * The Constructor of the HomeMenuController
+     * @param owner The current object of the GameFrame
+     * @param area The dimension area for set the preferred size for the homemenu
+     * @param homemenuModel The object of the HomeMenuModel
+     * @param homemenuView The object of the HomeMenuView
+     */
+    public HomeMenuController(GameFrame owner, Dimension area,HomeMenuModel homemenuModel, HomeMenuView homemenuView){
         this.owner = owner;
         this.area = area;
-        this.homemenuModel = homeMenuModel;
-        this.homeMenuView = homeMenuView;
+        this.homeMenuModel = homemenuModel;
+        this.homeMenuView = homemenuView;
 
-        homemenuModel.setHomemenuFace(new Rectangle(new Point(0,0),area));
         homeMenuView.initialize(this,area);
-        homemenuModel.setButtonDimension(new Dimension(area.width / 2, area.height / 12));
-        homemenuModel.setButtonDimension();
+        homeMenuModel.setHomemenuFace(new Rectangle(new Point(0,0),area));
+        homeMenuModel.setButtonDimension(new Dimension(area.width / 2, area.height / 12));
+        homeMenuModel.setButtonDimension();
 
     }
 
 
-    //Method to draw the Menu pages
-    //Parameter is graphic context
+    /**
+     * To paint and draw the homemenu
+     * @param g The object of Graphics context
+     */
     public void paint(Graphics g){
-        homeMenuView.setMenuFace(homemenuModel.getHomemenuFace());
-        homeMenuView.setButton(homemenuModel.getStartButton(), homemenuModel.getExitButton(), homemenuModel.getInstructionButton());
-        homeMenuView.setClick(startClicked,menuClicked,instructionClicked);
+        homeMenuView.setMenuFace(homeMenuModel.getHomemenuFace());
+        homeMenuView.setButton(homeMenuModel.getStartButton(), homeMenuModel.getExitButton(), homeMenuModel.getInstructionButton());
+        homeMenuView.setClick(startClicked,exitClicked,instructionClicked);
         homeMenuView.drawMenu((Graphics2D)g);
     }
 
 
+    /**
+     * Go to different pages based on the button clicked and released
+     * @param mouseEvent Mouse action object
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        //if(startButton.contains(p)){
-        if(homemenuModel.getStartButton().contains(p)){
+        //Go to gameboard
+        if(homeMenuModel.getStartButton().contains(p)){
            owner.enableGameBoard();
 
         }
-        //else if(menuButton.contains(p)){
-        else if(homemenuModel.getExitButton().contains(p)){
+        //Exit the game
+        else if(homeMenuModel.getExitButton().contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
-        //else if(instructionButton.contains(p)){
-        else if(homemenuModel.getInstructionButton().contains(p)){
+        //Go to instruction pages
+        else if(homeMenuModel.getInstructionButton().contains(p)){
             owner.enableInstructionPanel();
         }
     }
 
+    /**
+     * Show the special effect when the button is pressed
+     * @param mouseEvent Mouse action object
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        //if(startButton.contains(p)){
-        if(homemenuModel.getStartButton().contains(p)){
+        if(homeMenuModel.getStartButton().contains(p)){
             startClicked = true;
             startButtonRepaint();
 
         }
-        //else if(menuButton.contains(p)){
-        else if(homemenuModel.getExitButton().contains(p)){
-            menuClicked = true;
-            menuButtonRepaint();
+        else if(homeMenuModel.getExitButton().contains(p)){
+            exitClicked = true;
+            exitButtonRepaint();
         }
-
-        //Add instruction function
-       // else if(instructionButton.contains(p)){
-        else if(homemenuModel.getInstructionButton().contains(p)){
+        else if(homeMenuModel.getInstructionButton().contains(p)){
             instructionClicked = true;
             instructionButtonRepaint();
         }
     }
 
+    /**
+     * Show the special effect when the button pressed is released
+     * @param mouseEvent Mouse action object
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         if(startClicked ){
             startClicked = false;
             startButtonRepaint();
         }
-        else if(menuClicked){
-            menuClicked = false;
-            menuButtonRepaint();
+        else if(exitClicked){
+            exitClicked = false;
+            exitButtonRepaint();
         }
         else if(instructionClicked){
             instructionClicked = false;
@@ -147,29 +160,39 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
 
     }
 
+    /**
+     * To detect whether the mouse cursor is pointed at the button
+     * @param mouseEvent The mouse action object
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        //if(startButton.contains(p) || menuButton.contains(p) || instructionButton.contains(p))
-        if(homemenuModel.getStartButton().contains(p) || homemenuModel.getExitButton().contains(p) || homemenuModel.getInstructionButton().contains(p))
+        if(homeMenuModel.getStartButton().contains(p) || homeMenuModel.getExitButton().contains(p) || homeMenuModel.getInstructionButton().contains(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
 
     }
 
-    //Create new method for repaint startButton and menuButton
+
+    /**
+     * To show the special effect on the startbutton
+     */
     public void startButtonRepaint(){
-       // repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
-        repaint(homemenuModel.getStartButton().x,homemenuModel.getStartButton().y,homemenuModel.getStartButton().width+1,homemenuModel.getStartButton().height+1);
+        repaint(homeMenuModel.getStartButton().x,homeMenuModel.getStartButton().y,homeMenuModel.getStartButton().width+1,homeMenuModel.getStartButton().height+1);
     }
 
-    public void menuButtonRepaint(){
-        //repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
-        repaint(homemenuModel.getExitButton().x,homemenuModel.getExitButton().y,homemenuModel.getExitButton().width+1,homemenuModel.getExitButton().height+1);
+    /**
+     * To show the special effect on the the exitbutton
+     */
+    public void exitButtonRepaint(){
+        repaint(homeMenuModel.getExitButton().x,homeMenuModel.getExitButton().y,homeMenuModel.getExitButton().width+1,homeMenuModel.getExitButton().height+1);
     }
 
+    /**
+     * To show the special effect on the instructionbutton
+     */
     public void instructionButtonRepaint(){
-        repaint(homemenuModel.getInstructionButton().x,homemenuModel.getInstructionButton().y,homemenuModel.getInstructionButton().width+1,homemenuModel.getInstructionButton().height+1);
+        repaint(homeMenuModel.getInstructionButton().x,homeMenuModel.getInstructionButton().y,homeMenuModel.getInstructionButton().width+1,homeMenuModel.getInstructionButton().height+1);
     }
 }

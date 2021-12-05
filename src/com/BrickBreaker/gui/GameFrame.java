@@ -22,13 +22,17 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
-//unused import statement
-
-
+/**
+ * This is the GameFrame class
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class GameFrame extends JFrame implements WindowFocusListener {
-
+    //Game Title on window
     private static final String DEF_TITLE = "Brick Destroy";
 
+    //Object for Game and HomeMenu
     private GameModel gameModel;
     private GameView gameView;
     private GameController gameController;
@@ -37,23 +41,30 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private HomeMenuModel homeMenuModel;
     private HomeMenuView homeMenuView;
 
+    //To determine window focus
     private boolean gaming;
 
+    //Object for creating icon
     private Image icon;
 
     //Add new object about instruction
     private Instruction instruction;
 
+    /**
+     * The constructor of GameFrame class
+     * Create object for the classes used
+     */
     public GameFrame(){
         super();
         gaming = false;
-
         this.setLayout(new BorderLayout());
+
         //Add Icon images
         icon = Toolkit.getDefaultToolkit().getImage("src/com/BrickBreaker/Images/brick_Icon.jpg");
         icon = icon.getScaledInstance(120,120, java.awt.Image.SCALE_SMOOTH);
         this.setIconImage(icon);
 
+        //new object created
         gameModel = new GameModel(new Rectangle(0,0,600,450));
         gameView = new GameView();
         gameController = new GameController(this, gameModel,gameView);
@@ -62,16 +73,19 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         homeMenuView = new HomeMenuView();
         homeMenuController = new HomeMenuController(this,new Dimension(600,450),homeMenuModel,homeMenuView);//450, 300
 
+        instruction = new Instruction(this,new Dimension(600,450));
+
         //Add object to the container
         this.add(homeMenuController,BorderLayout.CENTER);
 
-        //This will hide the frame on homemenu
-        //this.setUndecorated(true);
+        //Disable the function to adjust the size of frame
+        this.setResizable(false);
 
-        //Add instruction page
-        instruction = new Instruction(this,new Dimension(600,450));
     }
 
+    /**
+     * This method will set the title and location of the game and make it visible
+     */
     public void initialize(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -80,16 +94,21 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+    /**
+     * Add the homemenu pages to the frame and show
+     */
     public void enableHomeMenu(){
         this.dispose();
         this.remove(instruction);
         this.add(homeMenuController,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
-        /*to avoid problems with graphics focus controller is added here*/
-        //this.addWindowFocusListener(this);
+
     }
 
+    /**
+     * Add the GameBoard to the frame and show
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenuController);
@@ -101,17 +120,21 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * Add the instruction page to the frame and show
+     */
     public void enableInstructionPanel(){
         this.dispose();
         this.remove(homeMenuController);
         this.add(instruction,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
-        /*to avoid problems with graphics focus controller is added here*/
-        //this.addWindowFocusListener(this);
     }
 
 
+    /**
+     * Reallocate the frame on the middle of the screen when pop out
+     */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -120,6 +143,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
 
+    /**
+     * To determine whether the focus on the frame/window is lost
+     * @param windowEvent The object of window event
+     */
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -133,6 +160,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         gaming = true;
     }
 
+    /**
+     * Call the method to show the message when the focus is lost
+     * @param windowEvent The object of window event
+     */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(gaming)

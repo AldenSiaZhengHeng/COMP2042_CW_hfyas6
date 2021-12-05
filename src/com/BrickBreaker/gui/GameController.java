@@ -28,35 +28,46 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-
+/**
+ * This is the GameController class
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class GameController extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
-
+    //Variable to set the color for background
     private static final Color BG_COLOR = Color.WHITE;
 
+    //Time system
     private Timer gameTimer;
 
+    //Object for the classes used
     private GameModel gameModel;
+    private DebugConsole debugConsole;
+    private GameView view;
+    private scoreController ScoreController;
+    private scoreModel ScoreModel;
+    private Brick brick;
+
+    //Getter method to get the GameModel object
     public GameModel getGame(){
         return gameModel;
     }
 
+    //Variable to check the pause action
     private boolean showPauseMenu;
 
-    private DebugConsole debugConsole;
-    private GameView view;
-
-    private Brick brick;
-
-    //Score
-    private scoreController ScoreController;
-    private scoreModel ScoreModel;
-
+    /**
+     * The constructor for GameController class
+     * Create object for the class used
+     * Create timer system and update the game and message in the game
+     * @param owner The object of the GameFrame
+     * @param gameModel The object of the GameModel
+     * @param gameView The object of the GaemView
+     */
     public GameController(JFrame owner, GameModel gameModel, GameView gameView){
         super();
-
         this.view = gameView;
         this.gameModel = gameModel;
         debugConsole = new DebugConsole(owner, gameModel,this);
@@ -68,21 +79,19 @@ public class GameController extends JComponent implements KeyListener,MouseListe
         view.initialize(this);
         view.initialize_message();
         view.setStart_message("Press Space to Start..");
-
-
         view.updatePause(showPauseMenu);
+
         //initialize the first level
         gameModel.nextLevel();
 
-       // checkScore();
+        //Timer system
         gameTimer = new Timer(10,e ->{
-
             view.setHighScore(String.format("HighScore: " + ScoreController.GetHighScore()));
             gameModel.move();
             gameModel.findImpacts();
 
+            //To set the message on the GameBoard
             view.initialize_message();
-
             view.setBrick_info(String.format("Bricks: %d", gameModel.getBrickCount()));
             if(gameModel.getBallCount() == 3){
                 view.setBall_info(String.format("Balls: ⚽ ⚽ ⚽", gameModel.getBallCount()));
@@ -96,9 +105,9 @@ public class GameController extends JComponent implements KeyListener,MouseListe
             else{
                 view.setBall_info(String.format("Balls: ", gameModel.getBallCount()));
             }
-            //view.setScore_info(String.format("Score: %d", brick.getScore()));
             view.setScore_info(String.format("Score: %d", ScoreModel.getScore()));
 
+            //Check if the ball is lost
             if(gameModel.isBallLost()){
                 ScoreController.givePenalty();
                 if(gameModel.ballEnd()){
@@ -110,6 +119,7 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                 gameModel.ballReset();
                 gameTimer.stop();
             }
+            //Check if the level is done
             else if(gameModel.isDone()){
                 ScoreController.givebonus(gameModel.getBallCount());
                 if(gameModel.hasLevel()){
@@ -119,19 +129,22 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                     gameModel.wallReset();
                     gameModel.nextLevel();
                 }
+                //Check whether all the levels are completed
                 else{
                     view.setMessage4("ALL WALLS DESTROYED");
                     gameTimer.stop();
                 }
             }
-
             repaint();
         });
 
     }
 
+    /**
+     * To draw and paint the GameBoard and call the other draw method
+     * @param g The object of graphics context
+     */
     public void paint(Graphics g){
-
         Graphics2D g2d = (Graphics2D) g;
         clear(g2d);
         view.draw(g2d);
@@ -139,6 +152,10 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
     }
 
+    /**
+     * Initialize the background of the GameBoard
+     * @param g2d The object of graphics context in 2D
+     */
     private void clear(Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
@@ -150,6 +167,10 @@ public class GameController extends JComponent implements KeyListener,MouseListe
     public void keyTyped(KeyEvent keyEvent) {
     }
 
+    /**
+     * To determine which key is pressed and give different function based on the key pressed
+     * @param keyEvent The object of keyEvent
+     */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
@@ -181,17 +202,25 @@ public class GameController extends JComponent implements KeyListener,MouseListe
         }
     }
 
+    /**
+     * To stop the player when the key pressed release
+     * @param keyEvent The object of the keyEvent
+     */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         gameModel.getPlayer().stop();
     }
 
+    /**
+     * This method will check on which button the player clicked on
+     * @param mouseEvent The object of the keyEvent
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(!showPauseMenu)
             return;
-
+        //Continue the game
         if(view.getContinueButtonRect().contains(p)){
             view.initialize_message();
             view.setMessage4("Press Space to continue..");
@@ -199,6 +228,7 @@ public class GameController extends JComponent implements KeyListener,MouseListe
             view.updatePause(showPauseMenu);
             repaint();
         }
+        //Restart the game
         else if(view.getRestartButtonRect().contains(p)){
             view.initialize_message();
             view.setMessage3("Restarting Game...");
@@ -206,13 +236,12 @@ public class GameController extends JComponent implements KeyListener,MouseListe
             gameModel.ballReset();
             gameModel.wallReset();
 
-            //Add
-            //brick.setScore(0);
             ScoreModel.setScore(0);
             showPauseMenu = false;
             view.updatePause(showPauseMenu);
             repaint();
         }
+        //Exit the game
         else if(view.getExitButtonRect().contains(p)){
             System.exit(0);
         }
@@ -244,6 +273,10 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
     }
 
+    /**
+     * To detect the mouse cursor is pointing the button
+     * @param mouseEvent The object of the mouseEvent
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -258,6 +291,9 @@ public class GameController extends JComponent implements KeyListener,MouseListe
         }
     }
 
+    /**
+     * To show the message to inform player if the windoe/frame lost focus
+     */
     public void onLostFocus(){
         gameTimer.stop();
         view.setStart_message("Press Space to continue...");
