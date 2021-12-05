@@ -18,9 +18,14 @@
 package com.BrickBreaker;
 
 import com.BrickBreaker.gui.GameFrame;
-
 import java.awt.*;
 
+/**
+ * This is the main class of the project (Brick Destroyer)
+ * @author Alden Sia Zheng Heng
+ * @version 1.0
+ * @since 3/11/2021
+ */
 public class GraphicsMain {
 
     public static void main(String[] args){
