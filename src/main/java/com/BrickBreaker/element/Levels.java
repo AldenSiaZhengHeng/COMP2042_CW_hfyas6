@@ -10,11 +10,16 @@ import java.awt.*;
  */
 public class Levels {
     //Variable to create the levels
-    private static final int LEVELS_COUNT = 7;
+    private static final int LEVELS_COUNT = 8;
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
     private static final int DIAMOND = 4;
+
+    private brickFactory factory;
+    public Levels(){
+        factory = new brickFactory();
+    }
 
     /**
      * This method will store and pass the levels created
@@ -26,27 +31,29 @@ public class Levels {
      */
     public Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeClayTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY);
-        tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
-        tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
+        tmp[0] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY);
+        tmp[1] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL);
+        tmp[2] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT,DIAMOND);
-        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
-        tmp[5] = makeCementTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT);
-        tmp[6] = makeSteelTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
+        tmp[5] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
+        tmp[6] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
+        tmp[7] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND);
         return tmp;
     }
 
 
     /**
-     * This method will create the levels that the all the bricks are clay brick
+     * This method will generate a levels that only consists one type of brick.
+     * The type of brick to build the wall is depended on the type passed
      * @param drawArea The area for the GameBoard
      * @param brickCnt The amount of brick to draw
      * @param lineCnt The amount of line to draw the brick
      * @param brickSizeRatio The size ratio for drawing the brick
-     * @param type The type of brick to draw
-     * @return The levels created with the type of brick passed
+     * @param type Type of brick to generate
+     * @return The levels created with the brick passed
      */
-    private Brick[] makeClayTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
+    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -74,115 +81,17 @@ public class Levels {
             x =(line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
+            tmp[i] = factory.getBrickType(type,p,brickSize);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
-            tmp[i] = new ClayBrick(p,brickSize);
+            tmp[i] = factory.getBrickType(type,p,brickSize);
         }
-        return tmp;
-
-    }
-
-    /**
-     * This method will create the levels that the all the bricks are Cement brick
-     * @param drawArea The area for the GameBoard
-     * @param brickCnt The amount of brick to draw
-     * @param lineCnt The amount of line to draw the brick
-     * @param brickSizeRatio The size ratio for drawing the brick
-     * @param type The type of brick to draw
-     * @return The levels created with the type of brick passed
-     */
-    private Brick[] makeCementTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        int brickOnLine = brickCnt / lineCnt;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
-            if(line == lineCnt)
-                break;
-            double x = (i % brickOnLine) * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = new CementBrick(p,brickSize);
-        }
+        System.out.println(tmp.getClass());
         return tmp;
     }
-
-    /**
-     * This method will create the levels that the all the bricks are steel brick
-     * @param drawArea The area for the GameBoard
-     * @param brickCnt The amount of brick to draw
-     * @param lineCnt The amount of line to draw the brick
-     * @param brickSizeRatio The size ratio for drawing the brick
-     * @param type The type of brick to draw
-     * @return The levels created with the type of brick passed
-     */
-    private Brick[] makeSteelTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        int brickOnLine = brickCnt / lineCnt;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
-            if(line == lineCnt)
-                break;
-            double x = (i % brickOnLine) * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = new SteelBrick(p,brickSize);
-        }
-        return tmp;
-
-    }
-
 
     /**
      * This method will created two type of brick in a levels
@@ -228,43 +137,14 @@ public class Levels {
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ?  makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            tmp[i] = b ? factory.getBrickType(typeA,p,brickSize) : factory.getBrickType(typeB,p,brickSize);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
+            tmp[i] = factory.getBrickType(typeA,p,brickSize);
         }
         return tmp;
     }
-
-    /**
-     * Create the brick based on the type
-     * @param point The position to draw the brick
-     * @param size The size to draw the brick
-     * @param type The type of brick to draw
-     * @return The object of the brick selected to created
-     */
-    private Brick makeBrick(Point point, Dimension size, int type){
-        Brick out;
-        switch(type){
-            case CLAY:
-                out = new ClayBrick(point,size);
-                break;
-            case STEEL:
-                out = new SteelBrick(point,size);
-                break;
-            case CEMENT:
-                out = new CementBrick(point, size);
-                break;
-            case DIAMOND:
-                out = new DiamondBrick(point,size);
-                break;
-            default:
-                throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
-        return  out;
-    }
-
 }
