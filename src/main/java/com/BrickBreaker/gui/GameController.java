@@ -19,7 +19,7 @@ package com.BrickBreaker.gui;
 
 //import packages
 import com.BrickBreaker.debug.*;
-import com.BrickBreaker.element.*;
+import com.BrickBreaker.element.brick.Brick;
 import com.BrickBreaker.score.*;
 
 

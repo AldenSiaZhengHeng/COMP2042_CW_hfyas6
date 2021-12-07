@@ -1,7 +1,8 @@
 package com.BrickBreaker.score;
 
 //Import Package
-import com.BrickBreaker.element.*;
+import com.BrickBreaker.element.brick.Brick;
+
 import javax.swing.*;
 import java.io.*;
 

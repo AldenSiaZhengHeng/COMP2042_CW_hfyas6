@@ -17,7 +17,7 @@
  */
 package com.BrickBreaker.debug;
 
-import com.BrickBreaker.element.*;
+import com.BrickBreaker.element.ball.Ball;
 import com.BrickBreaker.gui.*;
 
 import javax.swing.*;

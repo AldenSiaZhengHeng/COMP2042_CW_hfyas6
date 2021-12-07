@@ -15,7 +15,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.BrickBreaker.element;
+package com.BrickBreaker.element.ball;
+
+import com.BrickBreaker.element.ball.Ball;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

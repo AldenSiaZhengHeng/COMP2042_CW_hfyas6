@@ -1,6 +1,7 @@
-package com.BrickBreaker.element;
+package com.BrickBreaker.element.brick;
 
 //Import package
+import com.BrickBreaker.element.ball.Ball;
 import com.BrickBreaker.score.*;
 import java.awt.*;
 import java.awt.Point;

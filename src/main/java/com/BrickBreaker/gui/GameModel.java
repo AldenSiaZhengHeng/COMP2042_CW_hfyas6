@@ -18,6 +18,10 @@
 package com.BrickBreaker.gui;
 
 import com.BrickBreaker.element.*;
+import com.BrickBreaker.element.ball.Ball;
+import com.BrickBreaker.element.ball.RubberBall;
+import com.BrickBreaker.element.brick.Brick;
+import com.BrickBreaker.element.brick.Crack;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
