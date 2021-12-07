@@ -30,15 +30,13 @@ public class scoreController {
      */
     public void givebonus(int ball_lives){
         if(ball_lives == 3){
-            ScoreModel.bonusScore(30);
+            ScoreModel.bonusScore(100);
         }
         else if(ball_lives == 2){
-            ScoreModel.bonusScore(20);
+            ScoreModel.bonusScore(50);
         }
         else if(ball_lives == 1){
-            ScoreModel.bonusScore(10);
-        }
-        else{
+            ScoreModel.bonusScore(20);
         }
     }
 

@@ -112,17 +112,29 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                 view.setScore_info(String.format("Score: %d - 50. You noob", ScoreModel.getScore()));
                 ScoreController.givePenalty();
                 if(gameModel.ballEnd()){
-                    ScoreModel.setScore(0);
                     gameModel.wallReset();
                     view.initialize_message();
                     view.setMessage("Game over");
                     ScoreController.checkScore(view.getHighScore());
+                    ScoreModel.setScore(0);
                 }
                 gameModel.ballReset();
                 gameTimer.stop();
             }
             //Check if the level is done
             else if(gameModel.isDone()){
+                if(gameModel.getBallCount() == 3){
+                    view.setScore_info(String.format("Score: %d + 100", ScoreModel.getScore()));
+                }
+                else if(gameModel.getBallCount() == 2){
+                    view.setScore_info(String.format("Score: %d + 50", ScoreModel.getScore()));
+                }
+                else if(gameModel.getBallCount() == 1){
+                    view.setScore_info(String.format("Score: %d + 20", ScoreModel.getScore()));
+                }
+                else{
+                    view.setScore_info(String.format("Score: %d + 0", ScoreModel.getScore()));
+                }
                 ScoreController.givebonus(gameModel.getBallCount());
                 if(gameModel.hasLevel()){
                     view.setMessage2("Go to Next Level");
