@@ -26,7 +26,7 @@ import java.awt.*;
  * @version 1.0
  * @since 3/11/2021
  */
-public class GraphicsMain {
+public class MainLauncher {
 
     public static void main(String[] args){
         EventQueue.invokeLater(() -> new GameFrame().initialize());

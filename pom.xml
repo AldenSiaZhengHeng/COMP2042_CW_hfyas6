@@ -37,7 +37,7 @@
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
-                                <mainClass>com.BrickBreaker.GraphicsMain</mainClass>
+                                <mainClass>com.BrickBreaker.MainLauncher</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
