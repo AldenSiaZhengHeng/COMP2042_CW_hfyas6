@@ -1,5 +1,7 @@
 package com.BrickBreaker.element;
 
+import com.BrickBreaker.element.brick.Brick;
+
 import java.awt.*;
 
 /**
@@ -16,9 +18,9 @@ public class Levels {
     private static final int CEMENT = 3;
     private static final int DIAMOND = 4;
 
-    private brickFactory factory;
+    private BrickFactory factory;
     public Levels(){
-        factory = new brickFactory();
+        factory = new BrickFactory();
     }
 
     /**
@@ -89,7 +91,6 @@ public class Levels {
             p.setLocation(x,y);
             tmp[i] = factory.getBrickType(type,p,brickSize);
         }
-        System.out.println(tmp.getClass());
         return tmp;
     }
 

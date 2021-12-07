@@ -1,4 +1,6 @@
-package com.BrickBreaker.element;
+package com.BrickBreaker.element.brick;
+
+import com.BrickBreaker.element.brick.Brick;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

@@ -1,4 +1,4 @@
-package com.BrickBreaker.element;
+package com.BrickBreaker.element.ball;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

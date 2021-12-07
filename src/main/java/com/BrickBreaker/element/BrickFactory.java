@@ -1,8 +1,10 @@
 package com.BrickBreaker.element;
 
+import com.BrickBreaker.element.brick.*;
+
 import java.awt.*;
 
-public class brickFactory {
+public class BrickFactory {
     public Brick getBrickType(int BrickType, Point p, Dimension bricksize){
         if(BrickType == 0){
             return null;

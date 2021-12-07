@@ -1,7 +1,7 @@
 package com.BrickBreaker.gui;
 
-import com.BrickBreaker.element.Ball;
-import com.BrickBreaker.element.Brick;
+import com.BrickBreaker.element.ball.Ball;
+import com.BrickBreaker.element.brick.Brick;
 import com.BrickBreaker.element.Player;
 
 import javax.swing.*;

@@ -17,6 +17,8 @@
  */
 package com.BrickBreaker.element;
 
+import com.BrickBreaker.element.ball.Ball;
+
 import java.awt.*;
 
 /**
