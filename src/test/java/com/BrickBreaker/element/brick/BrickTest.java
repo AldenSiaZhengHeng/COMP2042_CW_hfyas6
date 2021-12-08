@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 public class BrickTest {
 
     //To test that whether there is impact occur on the cement brick
+    //isBroken method will return false if the brick is broken by detecting the impact between the brick and ball
+    //Return true if impact is detected
     @Test
     public void setImpact() {
         CementBrick cement = new CementBrick(new Point(),new Dimension(0,0));
