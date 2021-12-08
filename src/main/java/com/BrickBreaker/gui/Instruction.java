@@ -94,7 +94,7 @@ public class Instruction extends JComponent implements MouseListener, MouseMotio
         g2d.setFont(font.getInstructionListFont());
         g2d.drawString("1. The Controller will be [A], [D], [SPACE], and", 50,90);
         g2d.drawString("    [ESC] key button.", 50,110);
-        g2d.drawString("2. Press [SPACE] to start the game.", 50,130);
+        g2d.drawString("2. Press [SPACE] to start or pause the game.", 50,130);
         g2d.drawString("3. Press [A] to move to left.", 50,152);
         g2d.drawString("4. Press [D] to move to right.", 50,174);
         g2d.drawString("5. Press [ESC] to open Pause Menu.", 50,196);
