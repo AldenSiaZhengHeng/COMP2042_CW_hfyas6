@@ -18,7 +18,7 @@ public class HomeMenuView extends JComponent {
     //Text for the homemenu
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
-    private static final String CREDITS = "Version 0.1";
+    private static final String CREDITS = "Version 1.0";
     private static final String START_TEXT = "START";
     private static final String MENU_TEXT = "EXIT";
     private static final String instruction_TEXT = "INFO";
