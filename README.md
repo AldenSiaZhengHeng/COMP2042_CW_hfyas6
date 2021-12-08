@@ -52,7 +52,7 @@ The gameController has  very simple command: <br />
 <p>
 1. <b>Adding</b> highscore and display it on the middle of the GameBoard <br />
 2. <b>Create</b> new type of brick which is Diamond brick and <b>increase</b> the amount of levels with the new brick.<br />
-3. <b>Adding</b> score implementation.
+3. <b>Adding</b> score implementation.<br />
 4. <b>Add</b> bonus and penalty gameplay in the game.<br />
 5. Different bonus score will be given based on the ball lives left when move to next levels and deduct 50 points per lives lose.<br />
 6. <b>Create</b> and <b>add</b> an instruction pages for showing the instruction of the game.<br />
