@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.io.*;
 
 /**
- * This is scoreController class
+ * This is scoreController class that used to call the data from model, read and write the file.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

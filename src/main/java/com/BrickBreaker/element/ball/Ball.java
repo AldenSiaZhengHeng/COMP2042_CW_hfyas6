@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
 /**
- * This is the ClayBrick class to store variable to generate Clay brick
+ * This is the abstract Ball class to store variable to generate ball
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -26,8 +26,8 @@ abstract public class Ball {
     private Point2D right;
 
     /**
-     * The Constructor of the Ball class
-     * Assign the parameter and set to the variable
+     * The Constructor of the Ball class.
+     * Assign the parameter and set to the variable.
      * @param center The center of point of the ball
      * @param radiusA The horizontal radius for creating the ball
      * @param radiusB The vertical radius for creating the ball
@@ -49,7 +49,7 @@ abstract public class Ball {
     }
 
     /**
-     * The base constructor to make the ball
+     * The base constructor to make the ball.
      * It gives an outline to creating the ball
      * @param center The center point of the ball
      * @param radiusA The horizontal radius to draw the ball

@@ -98,16 +98,28 @@ public class DebugConsole extends JDialog implements WindowListener{
         gameController.repaint();
     }
 
+    /**
+     * Unused method
+     * @param windowEvent
+     */
     @Override
     public void windowClosed(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param windowEvent
+     */
     @Override
     public void windowIconified(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param windowEvent
+     */
     @Override
     public void windowDeiconified(WindowEvent windowEvent) {
 

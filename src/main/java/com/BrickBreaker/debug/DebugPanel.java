@@ -44,7 +44,7 @@ public class DebugPanel extends JPanel {
     private GameModel gameModel;
 
     /**
-     * The constructor of the DebugPanel class
+     * The constructor of the DebugPanel class.
      * Assign the function and variable
      * @param gameModel The object of the GameModel class
      */

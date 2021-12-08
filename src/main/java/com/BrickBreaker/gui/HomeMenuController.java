@@ -24,7 +24,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- * This is the HomeMenuController class
+ * This is the HomeMenuController class to call the data in HomeMenuModel class and call the method from HomeMenuView class to show the HomeMenu pages in frame.
+ * The HomeMenu class is renamed as HomeMenuController to act as a controller class to adhere mvc pattern
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -47,7 +48,7 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
     private Dimension area;
 
     /**
-     * The Constructor of the HomeMenuController
+     * The Constructor of the HomeMenuController to create object and assign variable.
      * @param owner The current object of the GameFrame
      * @param area The dimension area for set the preferred size for the homemenu
      * @param homemenuModel The object of the HomeMenuModel
@@ -144,17 +145,29 @@ public class HomeMenuController extends JComponent implements MouseListener, Mou
         }
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
 
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
 

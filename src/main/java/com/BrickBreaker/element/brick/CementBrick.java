@@ -24,7 +24,7 @@ public class CementBrick extends Brick {
 
 
     /**
-     * The constructor of the CementBrick class
+     * The constructor of the CementBrick class.
      * Pass the variable to the superclass
      * Create object for crack
      * @param point The location to draw the brick

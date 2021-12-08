@@ -9,7 +9,8 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 /**
- * This is the DiamondBrick Class which will store the variable to create the diamond brick
+ * This is the DiamondBrick Class which will store the variable to create the diamond brick.
+ * DiamondBrick class is created and added is for including bonus levels which allow player to score more point in that level.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -23,6 +24,7 @@ public class DiamondBrick extends Brick {
     private static final int gainScore = 50;
     private Shape brickFace;
     private Crack crack;
+
     /**
      * The constructor of DiamondBrick class
      * Pass variable to super class
@@ -36,7 +38,6 @@ public class DiamondBrick extends Brick {
         crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS,super.getBrickFace());
     }
 
-
     /**
      * Update the brick face if the ball hit the brick
      */
@@ -49,7 +50,7 @@ public class DiamondBrick extends Brick {
     }
 
     /**
-     * Determine the impact between the ball and brick
+     * Determine the impact between the ball and brick.
      * Pass the score when the brick is broken
      * @param point The location of the current brick
      * @param dir   The direction of the ball

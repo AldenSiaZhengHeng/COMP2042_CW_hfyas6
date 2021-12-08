@@ -9,7 +9,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 /**
- * This is the Instruction class
+ * This is the Instruction class to create the instruction pages and show on the frame.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

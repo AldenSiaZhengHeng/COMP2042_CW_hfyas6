@@ -28,7 +28,8 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 /**
- * This is the GameModel class
+ * This is the GameModel class that store the variable used for GameController and GameView class.
+ * The wall class is renamed to GameModel class as it contains most of the data to generate the game.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

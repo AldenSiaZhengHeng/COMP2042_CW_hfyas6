@@ -3,7 +3,8 @@ package com.BrickBreaker.gui;
 import java.awt.*;
 
 /**
- * This is the HomeMenuModel class
+ * This is the HomeMenuModel class to store the data for creating HomeMenu pages on window.
+ * This is a Model class created to adhere MVC pattern
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

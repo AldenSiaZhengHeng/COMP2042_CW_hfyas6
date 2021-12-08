@@ -20,7 +20,7 @@ public class ClayBrick extends Brick {
 
 
     /**
-     * The constructor of ClayBrick class
+     * The constructor of ClayBrick class.
      * Pass variable to super class
      * @param point The location for the brick generated
      * @param size The size of the brick

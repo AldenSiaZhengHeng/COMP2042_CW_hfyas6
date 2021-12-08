@@ -1,7 +1,7 @@
 package com.BrickBreaker.score;
 
 /**
- * This is scoreModel class
+ * This is scoreModel class that store the score from the game including bonus and penalty score.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

@@ -3,7 +3,7 @@ package com.BrickBreaker.gui;
 import java.awt.*;
 
 /**
- * This is the WordFontStyle class
+ * This is the WordFontStyle class that store most of the font style used to draw the string and lines in the game.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

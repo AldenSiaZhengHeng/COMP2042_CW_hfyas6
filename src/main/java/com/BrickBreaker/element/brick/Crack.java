@@ -9,7 +9,8 @@ import java.util.Random;
 
 
 /**
- * This is the Crack class to store the variable to make the crack effect on the brick
+ * This is the Crack class to store the variable to make the crack effect on the brick.
+ * The Crack class is separated from Brick class so that any other brick can use it without extend Brick class.
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -108,7 +109,7 @@ public class Crack{
     }
 
     /**
-     * Overloading method for making crack on the brick
+     * Overloading method for making crack on the brick.
      * Randomly generate path from start point to end point
      * @param start The impact point on the brick
      * @param end Random point

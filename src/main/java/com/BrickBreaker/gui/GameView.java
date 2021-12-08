@@ -9,7 +9,8 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 
 /**
- * This is the GameView class
+ * This is the GameView class to show the game on the frame.
+ * This class is created to adhere MVC pattern
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -55,7 +56,7 @@ public class GameView extends  JComponent{
 
 
     /**
-     * The constructor of the GameView class
+     * The constructor of the GameView class.
      */
     public GameView(){
         font = new WordFontStyle();
@@ -79,7 +80,7 @@ public class GameView extends  JComponent{
     }
 
     /**
-     * Add the key and mouse listener to the Gamebord and set the preferred size of the GameBoard
+     * Add the key and mouse listener to the GameBoard and set the preferred size of the GameBoard
      * @param Owner The object of the GameController class
      */
     public void initialize(GameController Owner){

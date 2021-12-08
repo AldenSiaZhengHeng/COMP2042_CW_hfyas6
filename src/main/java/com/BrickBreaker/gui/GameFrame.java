@@ -23,7 +23,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 /**
- * This is the GameFrame class
+ * This is the GameFrame class to add the homemenu, instruction and gameboard to show on the window
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -51,7 +51,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private Instruction instruction;
 
     /**
-     * The constructor of GameFrame class
+     * The constructor of GameFrame class.
      * Create object for the classes used
      */
     public GameFrame(){
@@ -144,7 +144,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
 
     /**
-     * To determine whether the focus on the frame/window is lost
+     * To determine whether the focus on the frame/window is lost.
      * @param windowEvent The object of window event
      */
     @Override

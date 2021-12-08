@@ -5,7 +5,8 @@ import com.BrickBreaker.element.brick.Brick;
 import java.awt.*;
 
 /**
- * This is the Levels class to generate the levels
+ * This is the Levels class to generate the levels.
+ * All method that used to generate the levels are separated from GameModel class and move into new Levels class
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021

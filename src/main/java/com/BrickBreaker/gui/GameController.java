@@ -29,7 +29,8 @@ import java.awt.event.*;
 
 
 /**
- * This is the GameController class
+ * This is the GameController class that update the GameModel and GameView class.
+ * The gameboard class is rename to GameController class as it contains most of the logic to act as controller of the game
  * @author Alden Sia Zheng Heng
  * @version 1.0
  * @since 3/11/2021
@@ -59,9 +60,9 @@ public class GameController extends JComponent implements KeyListener,MouseListe
     private boolean showPauseMenu;
 
     /**
-     * The constructor for GameController class
-     * Create object for the class used
-     * Create timer system and update the game and message in the game
+     * The constructor for GameController class.
+     * Create object for the class used.
+     * Create timer system and update the game and message in the game.
      * @param owner The object of the GameFrame
      * @param gamemodel The object of the GameModel
      * @param gameView The object of the GaemView
@@ -262,26 +263,46 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * Unused method
+     * @param mouseEvent
+     */
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
 

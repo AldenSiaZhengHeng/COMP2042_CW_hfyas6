@@ -24,7 +24,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * This is RubberBall class to create the ball on the gamebaord
+ * This is RubberBall class to create the ball on the GameBaord.
+ * It extend Ball class to use the method from it
  */
 public class RubberBall extends Ball {
 
