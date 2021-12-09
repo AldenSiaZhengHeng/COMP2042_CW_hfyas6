@@ -48,12 +48,22 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
 <h2>Additions</h2>
 <p>
 1. <b>Adding</b> high score and displaying it in the middle of the GameBoard <br />
+</p>
+<p>
 2. <b>Create</b> a new type of brick which is Diamond brick and <b>increase</b> the number of levels with the new brick.<br />
 &nbsp&nbsp&nbsp - Increase the type of levels to generate. <br />
+</p>
+<p>
 3. <b>Adding</b> score implementation.<br />
+</p>
+<p>
 4. <b>Add</b> bonus and penalty gameplay in the game.<br />
 &nbsp&nbsp&nbsp - Different bonus scores will be awarded based on the ball lives left when moving to the next levels and deducting 50 points per life lost.<br />
+</p>
+<p>
 5. <b>Create</b> and <b>add</b> an instruction page for showing the instruction of the game.<br />
+</p>
+<p>
 6. <b>Adding</b> background images in HomeMenu pages and Instruction pages for decoration.<br />
 </p>
 
