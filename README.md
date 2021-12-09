@@ -54,7 +54,7 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
 &nbsp&nbsp&nbsp - Increase the type of levels to generate. <br />
 </p>
 <p>
-3. <b>Adding</b> score implementation.<br />
+3. <b>Implement</b> scoring system.<br />
 </p>
 <p>
 4. <b>Add</b> bonus and penalty gameplay in the game.<br />
