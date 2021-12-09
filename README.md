@@ -25,23 +25,19 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
                         Therefore, I don't consider that my MVC implementation is proper and obeying the rule.
 </p>
 <p>
-5. <b>Renaming</b> wall class to GameModel after applying MVC pattern.<br />
-&nbsp&nbsp&nbsp <b>-Reason:</b> The wall class contains the variables for updating the game and others. Therefore, the wall class is renamed and acts as GameModel class.
-</p>
-<p>
-6. <b>Create</b> encapsulation field and <b>delete</b> unused variable<br />
+5. <b>Create</b> encapsulation field and <b>delete</b> unused variable<br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> To easily use the private variable from other classes and delete unused variables will make the code clean and tidy.
 </p>
 <p>
-7. <b>Implement</b> Factory design pattern for Brick class<br />
+6. <b>Implement</b> Factory design pattern for Brick class<br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> To provide the best way to create the bricks classes object based on the type of brick passed from Levels class
 </p>
 <p>
-8. <b>Add</b> maven to the project<br />
+7. <b>Add</b> maven to the project<br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> Allow us to add JUNIT dependency to create test cases and build the project.
 </p>
 <p>
-9. <b>Add</b> Levels class and move all the methods to generate the levels into it<br />
+8. <b>Add</b> Levels class and move all the methods to generate the levels into it<br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> To easily add or modify the type of levels generated for the game.
 </p>
 <hr>
