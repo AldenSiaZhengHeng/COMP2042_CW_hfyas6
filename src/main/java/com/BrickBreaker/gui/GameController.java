@@ -110,7 +110,7 @@ public class GameController extends JComponent implements KeyListener,MouseListe
 
             //Check if the ball is lost
             if(gameModel.isBallLost()){
-                view.setScore_info(String.format("Score: %d - 50. You noob", ScoreModel.getScore()));
+                view.setScore_info(String.format("Score: %d - 50. Please try harder", ScoreModel.getScore()));
                 ScoreController.givePenalty();
                 if(gameModel.ballEnd()){
                     gameModel.wallReset();
