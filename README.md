@@ -1,4 +1,5 @@
 <h1>Brick_Destroy</h1>
+<p>Java version: 15.0.2</p>
 <h2>Description of the game</h2>
 <p>
 This is a simple arcade video game.
