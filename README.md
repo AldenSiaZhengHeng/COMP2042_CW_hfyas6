@@ -7,7 +7,7 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
 <hr>
 <h2>Refactor Process</h2>
 <p>
-1. The classes in the original source folder had been <b>separated</b> and <b>move into different new packages</b> that related. <br />
+1. <b>Organize</b> the classes and <b>move</b> them into different package. <br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> To organize the class from the original folder well and to prevent confusion. The class is also can be easily found for maintaining and extending processes.
 </p>
 <p>
@@ -21,7 +21,7 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
 <p>
 4. Create <b>model, controller and view class</b> for HomeMenu and GameBoard in the existing source code.<br />
 &nbsp&nbsp&nbsp <b>-Reason:</b> It is because applying MVC pattern in the project, it will make the project more scalable, maintainable, and easy to expand.
-                        Furthermore, all the View classes rely on the Controller for its existence in the project, which also known as composition relationship.
+                        However, all the View classes rely on the Controller for its existence in the project, which also known as composition relationship.
                         Therefore, I don't consider that my MVC implementation is proper and obeying the rule.
 </p>
 <p>
