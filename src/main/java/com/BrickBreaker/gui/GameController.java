@@ -116,6 +116,7 @@ public class GameController extends JComponent implements KeyListener,MouseListe
                     gameModel.wallReset();
                     view.initialize_message();
                     view.setMessage("Game over");
+                    view.setStart_message("Press Space to restart..");
                     ScoreController.checkScore(view.getHighScore());
                     ScoreModel.setScore(0);
                 }
