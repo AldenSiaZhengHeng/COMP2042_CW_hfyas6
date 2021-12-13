@@ -47,6 +47,7 @@ Player's goal is to destroy a wall made up of brick with a small ball.<br />
 <h2>Additions</h2>
 <p>
 1. <b>Adding</b> high score and displaying it in the middle of the GameBoard <br />
+&nbsp&nbsp&nbsp - A dialog will pop out if the current score is higher than the high score and ask player to enter their name for saving it. <br />
 </p>
 <p>
 2. <b>Create</b> a new type of brick which is Diamond brick and <b>increase</b> the number of levels with the new brick.<br />
